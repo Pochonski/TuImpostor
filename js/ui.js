@@ -665,15 +665,6 @@ function viewRound({ onNavigate }) {
     el("p", { class: "p", text: `Jugador ${currentPlayerIndex + 1} de ${players.length}` }),
     revealArea,
     el("div", { class: "actions" }, [
-      el("button", { class: "btn btn-danger", type: "button", onclick: () => {
-        if (confirm("¿Revelar impostores? Esto terminará el juego.")) {
-          revealImpostors(state);
-          const root = document.getElementById("app");
-          if (root) {
-            renderApp(root, state.route, { onNavigate });
-          }
-        }
-      } }, ["Revelar impostores"]),
       el("button", { class: "btn btn-secondary", type: "button", onclick: () => {
         if (confirm("¿Salir de la partida? Se perderá el progreso.")) {
           resetGame(state);
