@@ -1,6 +1,6 @@
 import { state } from "./state.js";
 import { createCategory, deleteCategory, addWord, removeWord, getCategoryById } from "./categories.js";
-import { startGame, revealCurrentPlayer, nextPlayer, resetGame, validateGameDraft, startGamePhase, revealImpostors } from "./game.js";
+import { startGame, revealCurrentPlayer, nextPlayer, resetGame, validateGameDraft, startGamePhase } from "./game.js";
 
 function el(tag, attrs = {}, children = []) {
   const node = document.createElement(tag);
@@ -497,31 +497,7 @@ function viewRound({ onNavigate }) {
     return { title: "¡Listos para jugar!", subtitle: "Fase de preparación", content };
   }
 
-  // Si estamos en fase "reveal", mostrar pantalla de revelar impostores
-  if (gamePhase === "reveal") {
-    const impostors = players.filter(p => p.role === "impostor");
-    const content = el("div", {}, [
-      el("h1", { class: "h1", text: "¡Revelar impostores!" }),
-      el("p", { class: "p", text: `La palabra era: ${currentWord}` }),
-      el("div", { class: "section" }, [
-        el("div", { class: "section-header" }, [
-          el("span", { text: "🕵️" }),
-          el("h2", { class: "section-title", text: "IMPOSTORES" }),
-        ]),
-        ...impostors.map(imp => 
-          el("div", { class: "btn btn-danger", style: "pointer-events: none; margin-bottom: 8px;" }, [imp.label])
-        ),
-      ]),
-      el("div", { class: "actions" }, [
-        el("button", { class: "btn btn-primary", type: "button", onclick: () => {
-          resetGame(state);
-          onNavigate("/");
-        } }, ["Nueva partida"]),
-      ]),
-    ]);
-
-    return { title: "Fin del juego", subtitle: "Impostores revelados", content };
-  }
+  // Renderizar pantalla de juego principal
 
   // Si estamos en fase "playing" y queremos mostrar quién comienza
   if (gamePhase === "playing" && !state.game.startShown) {
