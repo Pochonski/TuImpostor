@@ -1,0 +1,54 @@
+- generic [ref=e24]:
+  - generic [ref=e26]:
+    - generic [ref=e27]: IMPOSTOR
+    - generic [ref=e28]: ¿QUIÉN?
+  - generic [ref=e31]:
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - generic [ref=e34]: 🎮
+        - heading "MODO DE JUEGO" [level=2] [ref=e35]
+      - generic [ref=e36]:
+        - button "👥 Clásico" [disabled] [ref=e37] [cursor=pointer]
+        - button "🌐 En línea" [disabled] [ref=e38] [cursor=pointer]
+    - generic [ref=e39]:
+      - generic [ref=e40]:
+        - generic [ref=e41]: 👋
+        - heading "JUGADORES" [level=2] [ref=e42]
+      - generic [ref=e43]:
+        - button "-" [ref=e44] [cursor=pointer]
+        - spinbutton [ref=e45]: "3"
+        - button "+" [ref=e46] [cursor=pointer]
+      - generic [ref=e47]:
+        - button "Jugador 1" [disabled] [ref=e48] [cursor=pointer]
+        - button "Jugador 2" [disabled] [ref=e49] [cursor=pointer]
+        - button "Jugador 3" [disabled] [ref=e50] [cursor=pointer]
+    - generic [ref=e51]:
+      - generic [ref=e52]:
+        - generic [ref=e53]: 🏠
+        - heading "CATEGORÍAS" [level=2] [ref=e54]
+      - generic [ref=e55]:
+        - generic [ref=e56] [cursor=pointer]:
+          - checkbox "Clásico" [ref=e57]
+          - generic [ref=e58]: Clásico
+        - generic [ref=e59] [cursor=pointer]:
+          - checkbox "Oficina" [ref=e60]
+          - generic [ref=e61]: Oficina
+        - generic [ref=e62] [cursor=pointer]:
+          - checkbox "Viajes" [ref=e63]
+          - generic [ref=e64]: Viajes
+    - generic [ref=e65]:
+      - generic [ref=e66]:
+        - generic [ref=e67]: 🥸
+        - heading "IMPOSTORES" [level=2] [ref=e68]
+      - generic [ref=e69]:
+        - button "-" [ref=e70] [cursor=pointer]
+        - spinbutton [ref=e71]: "1"
+        - button "+" [ref=e72] [cursor=pointer]
+      - paragraph [ref=e73]: 1 Impostor
+    - button "▶ INICIAR JUEGO" [ref=e74] [cursor=pointer]
+    - button "Volver al menú" [ref=e75] [cursor=pointer]
+  - generic [ref=e76]:
+    - button "Menú" [ref=e77] [cursor=pointer]
+    - button "Nueva" [ref=e78] [cursor=pointer]
+    - button "Ajustes" [ref=e79] [cursor=pointer]
+    - button "Categorías" [ref=e80] [cursor=pointer]

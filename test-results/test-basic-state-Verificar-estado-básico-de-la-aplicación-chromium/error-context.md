@@ -1,0 +1,56 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - generic [ref=e5]:
+    - generic [ref=e6]: IMPOSTOR
+    - generic [ref=e7]: ¿QUIÉN?
+  - generic [ref=e10]:
+    - generic [ref=e11]:
+      - generic [ref=e12]:
+        - generic [ref=e13]: 🎮
+        - heading "MODO DE JUEGO" [level=2] [ref=e14]
+      - generic [ref=e15]:
+        - button "👥 Clásico" [disabled] [ref=e16] [cursor=pointer]
+        - button "🌐 En línea" [ref=e17] [cursor=pointer]
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - generic [ref=e20]: 👋
+        - heading "JUGADORES" [level=2] [ref=e21]
+      - generic [ref=e22]:
+        - button "-" [ref=e23] [cursor=pointer]
+        - spinbutton [ref=e24]: "3"
+        - button "+" [ref=e25] [cursor=pointer]
+      - generic [ref=e26]:
+        - textbox "Jugador 1" [ref=e27]: Juan
+        - textbox "Jugador 2" [ref=e28]: María
+        - textbox "Jugador 3" [active] [ref=e29]: Pedro
+    - generic [ref=e30]:
+      - generic [ref=e31]:
+        - generic [ref=e32]: 🏠
+        - heading "CATEGORÍAS" [level=2] [ref=e33]
+      - generic [ref=e34]:
+        - generic [ref=e35] [cursor=pointer]:
+          - checkbox "Clásico" [ref=e36]
+          - generic [ref=e37]: Clásico
+        - generic [ref=e38] [cursor=pointer]:
+          - checkbox "Oficina" [ref=e39]
+          - generic [ref=e40]: Oficina
+        - generic [ref=e41] [cursor=pointer]:
+          - checkbox "Viajes" [ref=e42]
+          - generic [ref=e43]: Viajes
+    - generic [ref=e44]:
+      - generic [ref=e45]:
+        - generic [ref=e46]: 🥸
+        - heading "IMPOSTORES" [level=2] [ref=e47]
+      - generic [ref=e48]:
+        - button "-" [ref=e49] [cursor=pointer]
+        - spinbutton [ref=e50]: "1"
+        - button "+" [ref=e51] [cursor=pointer]
+      - paragraph [ref=e52]: 1 Impostor
+    - button "▶ INICIAR JUEGO" [ref=e53] [cursor=pointer]
+    - button "Ajustes" [ref=e54] [cursor=pointer]
+  - generic [ref=e55]:
+    - button "Nueva partida" [ref=e56] [cursor=pointer]
+    - button "Ajustes" [ref=e57] [cursor=pointer]
+```
