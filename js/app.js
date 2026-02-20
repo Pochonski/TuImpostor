@@ -48,6 +48,10 @@ function hydrate() {
   }
   if (persisted?.game) {
     state.game = { ...createNewGameDraft(), ...persisted.game };
+    // Forzar gamePhase a setup si está en ready para evitar bucles
+    if (state.game.gamePhase === "ready") {
+      state.game.gamePhase = "setup";
+    }
   }
   ensureCategories(state);
   ensureDefaultCategories(state);
