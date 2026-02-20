@@ -512,16 +512,13 @@ function viewRound({ onNavigate }) {
           el("div", { class: "btn btn-danger", style: "pointer-events: none; margin-bottom: 8px;" }, [imp.label])
         ),
       ]),
-      el("p", { class: "p", style: "text-align: center; margin-top: 16px; color: var(--muted);" }, [
-        "🔄 Reiniciando automáticamente..."
+      el("div", { class: "actions" }, [
+        el("button", { class: "btn btn-primary", type: "button", onclick: () => {
+          resetGame(state);
+          onNavigate("/");
+        } }, ["Nueva partida"]),
       ]),
     ]);
-
-    // Reiniciar automáticamente después de 5 segundos
-    setTimeout(() => {
-      resetGame(state);
-      onNavigate("/");
-    }, 5000);
 
     return { title: "Fin del juego", subtitle: "Impostores revelados", content };
   }
