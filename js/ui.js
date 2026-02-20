@@ -65,11 +65,15 @@ function makeNav(route, onNavigate) {
 }
 
 function viewMenu({ onNavigate }) {
-  // Redirigir automáticamente a /new
-  onNavigate("/new");
-  
   const content = el("div", {}, [
-    el("p", { class: "p", text: "Cargando..." }),
+    el("p", { class: "p", text: "¡Bienvenido a TúImpostor! El juego donde debes descubrir quién es el impostor." }),
+    el("div", { class: "actions" }, [
+      el("button", { 
+        class: "btn btn-primary btn-start", 
+        type: "button", 
+        onclick: () => onNavigate("/new") 
+      }, ["Nueva partida"]),
+    ]),
   ]);
 
   return { title: "TúImpostor", subtitle: "Juego social", content };
@@ -748,7 +752,7 @@ function viewNotFound({ onNavigate }) {
 
 export function renderApp(root, route, { onNavigate }) {
   const routes = {
-    "/": viewNewGame,
+    "/": viewMenu,
     "/new": viewNewGame,
     "/settings": viewSettings,
     "/categories": viewCategories,
