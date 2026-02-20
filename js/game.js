@@ -96,8 +96,8 @@ export function revealCurrentPlayer(state) {
 export function nextPlayer(state) {
   const nextIdx = state.game.currentPlayerIndex + 1;
   if (nextIdx >= state.game.players.length) {
-    // Todos los jugadores han pasado - mantener en "playing" para mostrar botón de revelar
-    state.game.currentPlayerIndex = state.game.players.length - 1; // Mantener en último jugador
+    // Todos los jugadores han pasado - volver al jugador 1 para revelar
+    state.game.currentPlayerIndex = 0; // Volver al primer jugador
     return { ok: true, finished: true };
   }
   state.game.currentPlayerIndex = nextIdx;
