@@ -20,6 +20,7 @@
 html,
 body {
   height: 100%;
+  min-height: 100%;
 }
 body {
   margin: 0;
@@ -44,11 +45,13 @@ body {
       transparent 55%
     ),
     var(--bg);
+  background-attachment: fixed;
   color: var(--text);
+  min-height: 100vh;
 }
 
 .app {
-  min-height: 100%;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
 }
