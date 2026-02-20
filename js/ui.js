@@ -592,24 +592,37 @@ function viewRound({ onNavigate }) {
         e.preventDefault();
         flipCard.classList.add("flipped");
       });
-      
+
       revealBtn.addEventListener('mouseup', (e) => {
         e.preventDefault();
-        flipCard.classList.remove("flipped");
+        if (!state.game.revealed) {
+          revealCurrentPlayer(state);
+        }
+        const root = document.getElementById("app");
+        if (root) {
+          renderApp(root, state.route, { onNavigate });
+        }
       });
-      
+
       revealBtn.addEventListener('mouseleave', (e) => {
-        flipCard.classList.remove("flipped");
+        // Solo quitar la clase temporal si aún no se confirmó la revelación
+        if (!state.game.revealed) flipCard.classList.remove("flipped");
       });
-      
+
       revealBtn.addEventListener('touchstart', (e) => {
         e.preventDefault();
         flipCard.classList.add("flipped");
       });
-      
+
       revealBtn.addEventListener('touchend', (e) => {
         e.preventDefault();
-        flipCard.classList.remove("flipped");
+        if (!state.game.revealed) {
+          revealCurrentPlayer(state);
+        }
+        const root = document.getElementById("app");
+        if (root) {
+          renderApp(root, state.route, { onNavigate });
+        }
       });
       
       revealArea.append(revealBtn);
