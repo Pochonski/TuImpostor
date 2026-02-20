@@ -18,8 +18,9 @@ const mimeTypes = {
 };
 
 const server = http.createServer((req, res) => {
-  // Normalizar la URL
-  let filePath = path.join(BASE_DIR, req.url === '/' ? 'index.html' : req.url);
+  // Normalizar la URL (remover query strings)
+  const urlPath = req.url.split('?')[0];
+  let filePath = path.join(BASE_DIR, urlPath === '/' ? 'index.html' : urlPath);
   
   // Prevenir path traversal
   if (!filePath.startsWith(BASE_DIR)) {

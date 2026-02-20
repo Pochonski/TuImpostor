@@ -68,10 +68,10 @@ function viewMenu({ onNavigate }) {
   const content = el("div", {}, [
     el("p", { class: "p", text: "¡Bienvenido a TúImpostor! El juego donde debes descubrir quién es el impostor." }),
     el("div", { class: "actions" }, [
-      el("button", { 
-        class: "btn btn-primary btn-start", 
-        type: "button", 
-        onclick: () => onNavigate("/new") 
+      el("button", {
+        class: "btn btn-primary btn-start",
+        type: "button",
+        onclick: () => onNavigate("/new")
       }, ["Nueva partida"]),
     ]),
   ]);
@@ -95,9 +95,9 @@ function viewNewGame({ onNavigate }) {
     ]),
     el("div", { class: "mode-buttons" }, [
       el("button", { class: "btn btn-mode active", type: "button", disabled: true }, ["👥 Clásico"]),
-      el("button", { 
-        class: "btn btn-mode", 
-        type: "button", 
+      el("button", {
+        class: "btn btn-mode",
+        type: "button",
         onclick: () => {
           alert("🚀 Modo en línea disponible próximamente");
         }
@@ -106,22 +106,22 @@ function viewNewGame({ onNavigate }) {
   ]);
 
   // Sección JUGADORES
-  const playerCount = el("input", { 
-    type: "number", 
-    min: 3, 
-    max: 20, 
-    value: state.game.playerCount, 
+  const playerCount = el("input", {
+    type: "number",
+    min: 3,
+    max: 20,
+    value: state.game.playerCount,
     class: "player-input",
     onchange: () => {
       const v = parseInt(playerCount.value, 10);
       if (v >= 3 && v <= 20) state.game.playerCount = v;
-    } 
+    }
   });
 
   const playerButtons = el("div", { class: "player-buttons" });
   const updatePlayerButtons = () => {
     playerButtons.innerHTML = "";
-    
+
     // Asegurar que el array de nombres tenga el tamaño correcto
     while (state.game.playerNames.length < state.game.playerCount) {
       state.game.playerNames.push(`Jugador ${state.game.playerNames.length + 1}`);
@@ -129,7 +129,7 @@ function viewNewGame({ onNavigate }) {
     while (state.game.playerNames.length > state.game.playerCount) {
       state.game.playerNames.pop();
     }
-    
+
     for (let i = 0; i < state.game.playerCount; i++) {
       const playerNameInput = el("input", {
         class: "player-input",
@@ -151,9 +151,9 @@ function viewNewGame({ onNavigate }) {
       el("h2", { class: "section-title", text: "JUGADORES" }),
     ]),
     el("div", { class: "player-count-control" }, [
-      el("button", { 
-        class: "btn btn-count-control", 
-        type: "button", 
+      el("button", {
+        class: "btn btn-count-control",
+        type: "button",
         text: "-",
         onclick: () => {
           if (state.game.playerCount > 3) {
@@ -164,9 +164,9 @@ function viewNewGame({ onNavigate }) {
         }
       }),
       playerCount,
-      el("button", { 
-        class: "btn btn-count-control", 
-        type: "button", 
+      el("button", {
+        class: "btn btn-count-control",
+        type: "button",
         text: "+",
         onclick: () => {
           if (state.game.playerCount < 20) {
@@ -187,18 +187,20 @@ function viewNewGame({ onNavigate }) {
     cats.forEach((cat) => {
       const checked = state.game.categoryIds.includes(cat.id);
       const item = el("label", { class: "btn btn-category", style: "display:flex;align-items:center;gap:8px;" }, [
-        el("input", { type: "checkbox", checked, onchange: (e) => {
-          if (e.target.checked) {
-            if (!state.game.categoryIds.includes(cat.id)) {
-              state.game.categoryIds.push(cat.id);
-            }
-          } else {
-            const idx = state.game.categoryIds.indexOf(cat.id);
-            if (idx !== -1) {
-              state.game.categoryIds.splice(idx, 1);
+        el("input", {
+          type: "checkbox", checked, onchange: (e) => {
+            if (e.target.checked) {
+              if (!state.game.categoryIds.includes(cat.id)) {
+                state.game.categoryIds.push(cat.id);
+              }
+            } else {
+              const idx = state.game.categoryIds.indexOf(cat.id);
+              if (idx !== -1) {
+                state.game.categoryIds.splice(idx, 1);
+              }
             }
           }
-        } }),
+        }),
         el("span", { text: cat.name }),
       ]);
       catList.append(item);
@@ -215,16 +217,16 @@ function viewNewGame({ onNavigate }) {
   ]);
 
   // Sección IMPOSTORES
-  const impostorCount = el("input", { 
-    type: "number", 
-    min: 1, 
-    max: state.game.playerCount - 1, 
+  const impostorCount = el("input", {
+    type: "number",
+    min: 1,
+    max: state.game.playerCount - 1,
     value: state.game.impostorCount,
     class: "impostor-input",
     onchange: () => {
       const v = parseInt(impostorCount.value, 10);
       if (v >= 1 && v < state.game.playerCount) state.game.impostorCount = v;
-    } 
+    }
   });
 
   const impostorsSection = el("div", { class: "section" }, [
@@ -233,9 +235,9 @@ function viewNewGame({ onNavigate }) {
       el("h2", { class: "section-title", text: "IMPOSTORES" }),
     ]),
     el("div", { class: "impostor-control" }, [
-      el("button", { 
-        class: "btn btn-count-control", 
-        type: "button", 
+      el("button", {
+        class: "btn btn-count-control",
+        type: "button",
         text: "-",
         onclick: () => {
           if (state.game.impostorCount > 1) {
@@ -245,9 +247,9 @@ function viewNewGame({ onNavigate }) {
         }
       }),
       impostorCount,
-      el("button", { 
-        class: "btn btn-count-control", 
-        type: "button", 
+      el("button", {
+        class: "btn btn-count-control",
+        type: "button",
         text: "+",
         onclick: () => {
           if (state.game.impostorCount < state.game.playerCount - 1) {
@@ -260,9 +262,9 @@ function viewNewGame({ onNavigate }) {
     el("p", { class: "impostor-info", text: `${state.game.impostorCount} Impostor${state.game.impostorCount !== 1 ? "s" : ""}` }),
   ]);
 
-  const start = el("button", { 
-    class: "btn btn-primary btn-start", 
-    type: "button", 
+  const start = el("button", {
+    class: "btn btn-primary btn-start",
+    type: "button",
     onclick: () => {
       const result = startGame(state);
       if (!result.ok) {
@@ -270,13 +272,13 @@ function viewNewGame({ onNavigate }) {
       } else {
         onNavigate("/round");
       }
-    } 
+    }
   }, ["▶ INICIAR JUEGO"]);
 
-  const backButton = el("button", { 
-    class: "btn btn-secondary", 
-    type: "button", 
-    onclick: () => onNavigate("/settings") 
+  const backButton = el("button", {
+    class: "btn btn-secondary",
+    type: "button",
+    onclick: () => onNavigate("/settings")
   }, ["Ajustes"]);
 
   const content = el("div", {}, [
@@ -302,9 +304,9 @@ function viewSettings({ onNavigate }) {
       catList.append(el("p", { class: "p", text: "No hay categorías." }));
     } else {
       cats.forEach((cat) => {
-        const item = el("div", { 
-          class: "btn btn-category-manage", 
-          onclick: () => onNavigate(`/categories/${cat.id}`) 
+        const item = el("div", {
+          class: "btn btn-category-manage",
+          onclick: () => onNavigate(`/categories/${cat.id}`)
         }, [
           el("span", { text: `${cat.name} (${cat.words.length} palabras)` }),
         ]);
@@ -314,18 +316,20 @@ function viewSettings({ onNavigate }) {
   };
   refreshCats();
 
-  const addForm = el("form", { class: "actions", onsubmit: (e) => {
-    e.preventDefault();
-    const input = e.target.querySelector("input[type=text]");
-    const name = input.value.trim();
-    const result = createCategory(state, name);
-    if (result.ok) {
-      input.value = "";
-      refreshCats();
-    } else {
-      alert(result.reason);
+  const addForm = el("form", {
+    class: "actions", onsubmit: (e) => {
+      e.preventDefault();
+      const input = e.target.querySelector("input[type=text]");
+      const name = input.value.trim();
+      const result = createCategory(state, name);
+      if (result.ok) {
+        input.value = "";
+        refreshCats();
+      } else {
+        alert(result.reason);
+      }
     }
-  } }, [
+  }, [
     el("input", { type: "text", placeholder: "Nueva categoría", required: true }),
     el("button", { class: "btn btn-primary", type: "submit", text: "Añadir" }),
   ]);
@@ -370,18 +374,20 @@ function viewCategories({ onNavigate }) {
   };
   refresh();
 
-  const addForm = el("form", { class: "actions", onsubmit: (e) => {
-    e.preventDefault();
-    const input = e.target.querySelector("input[type=text]");
-    const name = input.value.trim();
-    const result = createCategory(state, name);
-    if (result.ok) {
-      input.value = "";
-      refresh();
-    } else {
-      alert(result.reason);
+  const addForm = el("form", {
+    class: "actions", onsubmit: (e) => {
+      e.preventDefault();
+      const input = e.target.querySelector("input[type=text]");
+      const name = input.value.trim();
+      const result = createCategory(state, name);
+      if (result.ok) {
+        input.value = "";
+        refresh();
+      } else {
+        alert(result.reason);
+      }
     }
-  } }, [
+  }, [
     el("input", { type: "text", placeholder: "Nueva categoría", required: true }),
     el("button", { class: "btn btn-primary", type: "submit", text: "Añadir" }),
   ]);
@@ -413,13 +419,15 @@ function viewCategoryDetail({ categoryId, onNavigate }) {
       list.append(el("p", { class: "p", text: "No hay palabras." }));
     } else {
       cat.words.forEach((word) => {
-        const item = el("div", { class: "btn btn-secondary", onclick: () => {
-          if (confirm(`¿Eliminar "${word}"?`)) {
-            const result = removeWord(state, categoryId, word);
-            if (!result.ok) alert(result.reason);
-            refresh();
+        const item = el("div", {
+          class: "btn btn-secondary", onclick: () => {
+            if (confirm(`¿Eliminar "${word}"?`)) {
+              const result = removeWord(state, categoryId, word);
+              if (!result.ok) alert(result.reason);
+              refresh();
+            }
           }
-        } }, [
+        }, [
           el("span", { text: word }),
         ]);
         list.append(item);
@@ -428,18 +436,20 @@ function viewCategoryDetail({ categoryId, onNavigate }) {
   };
   refresh();
 
-  const addForm = el("form", { class: "actions", onsubmit: (e) => {
-    e.preventDefault();
-    const input = e.target.querySelector("input[type=text]");
-    const word = input.value.trim();
-    const result = addWord(state, categoryId, word);
-    if (result.ok) {
-      input.value = "";
-      refresh();
-    } else {
-      alert(result.reason);
+  const addForm = el("form", {
+    class: "actions", onsubmit: (e) => {
+      e.preventDefault();
+      const input = e.target.querySelector("input[type=text]");
+      const word = input.value.trim();
+      const result = addWord(state, categoryId, word);
+      if (result.ok) {
+        input.value = "";
+        refresh();
+      } else {
+        alert(result.reason);
+      }
     }
-  } }, [
+  }, [
     el("input", { type: "text", placeholder: "Nueva palabra", required: true }),
     el("button", { class: "btn btn-primary", type: "submit", text: "Añadir" }),
   ]);
@@ -450,13 +460,15 @@ function viewCategoryDetail({ categoryId, onNavigate }) {
     list,
     addForm,
     el("div", { class: "actions" }, [
-      el("button", { class: "btn btn-danger", type: "button", onclick: () => {
-        if (confirm(`¿Eliminar categoría "${cat.name}"?`)) {
-          const result = deleteCategory(state, categoryId);
-          if (!result.ok) alert(result.reason);
-          onNavigate("/categories");
+      el("button", {
+        class: "btn btn-danger", type: "button", onclick: () => {
+          if (confirm(`¿Eliminar categoría "${cat.name}"?`)) {
+            const result = deleteCategory(state, categoryId);
+            if (!result.ok) alert(result.reason);
+            onNavigate("/categories");
+          }
         }
-      } }, ["Eliminar categoría"]),
+      }, ["Eliminar categoría"]),
       el("button", { class: "btn btn-secondary", type: "button", onclick: () => onNavigate("/categories") }, ["Volver"]),
     ]),
   ]);
@@ -475,9 +487,9 @@ function viewRound({ onNavigate }) {
       el("h1", { class: "h1", text: "¡Todos listos!" }),
       el("p", { class: "p", text: "Todos los jugadores han visto su palabra" }),
       el("div", { class: "actions" }, [
-        el("button", { 
-          class: "btn btn-primary btn-start", 
-          type: "button", 
+        el("button", {
+          class: "btn btn-primary btn-start",
+          type: "button",
           onclick: () => {
             startGamePhase(state);
             // Elegir un jugador aleatorio para comenzar
@@ -489,12 +501,14 @@ function viewRound({ onNavigate }) {
             }
           }
         }, ["Iniciar juego"]),
-        el("button", { class: "btn btn-secondary", type: "button", onclick: () => {
-          if (confirm("¿Salir de la partida? Se perderá el progreso.")) {
-            resetGame(state);
-            onNavigate("/");
+        el("button", {
+          class: "btn btn-secondary", type: "button", onclick: () => {
+            if (confirm("¿Salir de la partida? Se perderá el progreso.")) {
+              resetGame(state);
+              onNavigate("/");
+            }
           }
-        } }, ["Salir"]),
+        }, ["Salir"]),
       ]),
     ]);
 
@@ -512,15 +526,17 @@ function viewRound({ onNavigate }) {
           el("span", { text: "🕵️" }),
           el("h2", { class: "section-title", text: "IMPOSTORES" }),
         ]),
-        ...impostors.map(imp => 
+        ...impostors.map(imp =>
           el("div", { class: "btn btn-danger", style: "pointer-events: none; margin-bottom: 8px;" }, [imp.label])
         ),
       ]),
       el("div", { class: "actions" }, [
-        el("button", { class: "btn btn-primary", type: "button", onclick: () => {
-          resetGame(state);
-          onNavigate("/");
-        } }, ["Nueva partida"]),
+        el("button", {
+          class: "btn btn-primary", type: "button", onclick: () => {
+            resetGame(state);
+            onNavigate("/");
+          }
+        }, ["Nueva partida"]),
       ]),
     ]);
 
@@ -539,9 +555,9 @@ function viewRound({ onNavigate }) {
         ]),
       ]),
       el("div", { class: "actions" }, [
-        el("button", { 
-          class: "btn btn-primary", 
-          type: "button", 
+        el("button", {
+          class: "btn btn-primary",
+          type: "button",
           onclick: () => {
             // Marcar que ya se mostró quién comienza
             state.game.startShown = true;
@@ -551,12 +567,14 @@ function viewRound({ onNavigate }) {
             }
           }
         }, ["Continuar"]),
-        el("button", { class: "btn btn-secondary", type: "button", onclick: () => {
-          if (confirm("¿Salir de la partida? Se perderá el progreso.")) {
-            resetGame(state);
-            onNavigate("/");
+        el("button", {
+          class: "btn btn-secondary", type: "button", onclick: () => {
+            if (confirm("¿Salir de la partida? Se perderá el progreso.")) {
+              resetGame(state);
+              onNavigate("/");
+            }
           }
-        } }, ["Salir"]),
+        }, ["Salir"]),
       ]),
     ]);
 
@@ -570,7 +588,7 @@ function viewRound({ onNavigate }) {
 
   const refreshReveal = () => {
     revealArea.innerHTML = "";
-    
+
     // Crear la carta volteable
     const isImpostor = player.role === "impostor";
     flipCard = el("div", { class: "flip-card" }, [
@@ -581,128 +599,89 @@ function viewRound({ onNavigate }) {
         ])
       ])
     ]);
-    
+
     revealArea.append(flipCard);
-    
-    if (!player.revealed) {
-      // Botón que mantiene presionado para revelar
-      revealBtn = el("button", {
-        class: "btn btn-primary",
-        type: "button",
-      }, ["Mantener presionado para revelar"]);
-      
-      // Agregar eventos manualmente para asegurar que funcionen
-      revealBtn.addEventListener('mousedown', (e) => {
-        e.preventDefault();
-        flipCard.classList.add("flipped");
-      });
 
-      revealBtn.addEventListener('mouseup', (e) => {
-        e.preventDefault();
-        if (!state.game.revealed) {
-          revealCurrentPlayer(state);
-        }
-        const root = document.getElementById("app");
-        if (root) {
-          renderApp(root, state.route, { onNavigate });
-        }
-      });
+    // Botón que mantiene presionado para revelar
+    revealBtn = el("button", {
+      class: "btn btn-reveal",
+      type: "button",
+    }, ["Mantener presionado para revelar"]);
 
-      revealBtn.addEventListener('mouseleave', (e) => {
-        // Solo quitar la clase temporal si aún no se confirmó la revelación
-        if (!state.game.revealed) flipCard.classList.remove("flipped");
-      });
-
-      revealBtn.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        flipCard.classList.add("flipped");
-      });
-
-      revealBtn.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        if (!state.game.revealed) {
-          revealCurrentPlayer(state);
-        }
-        const root = document.getElementById("app");
-        if (root) {
-          renderApp(root, state.route, { onNavigate });
-        }
-      });
-      
-      revealArea.append(revealBtn);
-      
-      nextBtn = el("button", {
-        class: "btn btn-secondary",
-        type: "button",
-        style: "margin-top: 12px;",
-        onclick: () => {
-          const res = nextPlayer(state);
-          if (res.finished) {
-            onNavigate("/round-end");
-          } else {
-            // Re-renderizar la app con el nuevo estado del jugador
-            const root = document.getElementById("app");
-            if (root) {
-              renderApp(root, state.route, { onNavigate });
-            }
-          }
-        },
-      }, ["Siguiente jugador"]);
-      revealArea.append(nextBtn);
-    } else {
-      // Mostrar permanentemente revelado
+    // Eventos para revelar/ocultar
+    const handleReveal = (e) => {
+      e.preventDefault();
       flipCard.classList.add("flipped");
-      
-      nextBtn = el("button", {
-        class: "btn btn-primary",
-        type: "button",
-        style: "margin-top: 12px;",
-        onclick: () => {
-          const res = nextPlayer(state);
-          if (res.finished) {
-            onNavigate("/round-end");
-          } else {
-            // Re-renderizar la app con el nuevo estado del jugador
-            const root = document.getElementById("app");
-            if (root) {
-              renderApp(root, state.route, { onNavigate });
-            }
-          }
-        },
-      }, ["Siguiente jugador"]);
-      revealArea.append(nextBtn);
-    }
+    };
+
+    const handleHide = (e) => {
+      e.preventDefault();
+      flipCard.classList.remove("flipped");
+      if (!player.revealed && (e.type === 'mouseup' || e.type === 'touchend')) {
+        revealCurrentPlayer(state);
+        const root = document.getElementById("app");
+        if (root) renderApp(root, state.route, { onNavigate });
+      }
+    };
+
+    revealBtn.addEventListener('mousedown', handleReveal);
+    revealBtn.addEventListener('touchstart', handleReveal);
+    revealBtn.addEventListener('mouseup', handleHide);
+    revealBtn.addEventListener('touchend', handleHide);
+    revealBtn.addEventListener('mouseleave', () => flipCard.classList.remove("flipped"));
+
+    revealArea.append(revealBtn);
+
+    nextBtn = el("button", {
+      class: player.revealed ? "btn btn-primary" : "btn btn-secondary",
+      type: "button",
+      style: "margin-top: 12px;",
+      onclick: () => {
+        const res = nextPlayer(state);
+        if (res.finished) {
+          onNavigate("/round-end");
+        } else {
+          const root = document.getElementById("app");
+          if (root) renderApp(root, state.route, { onNavigate });
+        }
+      },
+    }, ["Siguiente jugador"]);
+    revealArea.append(nextBtn);
   };
   refreshReveal();
 
   // Mostrar botón de revelar solo cuando todos han jugado
   const isLastPlayer = currentPlayerIndex === players.length - 1;
   const allPlayersRevealed = players.every(p => p.revealed);
-  
+
   const actions = [];
-  
+
   if (isLastPlayer && allPlayersRevealed) {
     // Último jugador y todos han revelado - mostrar botón de revelar
     actions.push(
-      el("button", { class: "btn btn-danger", type: "button", onclick: () => {
-        if (confirm("¿Revelar impostores? Esto terminará el juego.")) {
-          revealImpostors(state);
-          const root = document.getElementById("app");
-          if (root) {
-            renderApp(root, state.route, { onNavigate });
+      el("button", {
+        class: "btn btn-danger", type: "button", onclick: () => {
+          if (confirm("¿Revelar impostores? Esto terminará el juego.")) {
+            revealImpostors(state);
+            const root = document.getElementById("app");
+            if (root) {
+              renderApp(root, state.route, { onNavigate });
+            }
           }
         }
-      } }, ["Revelar impostores"])
+      }, ["Revelar impostores"])
     );
   }
-  
+
   actions.push(
-    el("button", { class: "btn btn-secondary", type: "button", onclick: () => {
-      if (confirm("¿Salir de la partida? Se perderá el progreso.")) {
-        resetGame(state);
-        onNavigate("/");
+    el("button", {
+      class: "btn btn-secondary", type: "button", onclick: () => {
+        if (confirm("¿Salir de la partida? Se perderá el progreso.")) {
+          resetGame(state);
+          onNavigate("/");
+        }
       }
-    } }, ["Salir"])
+    }, ["Salir"])
   );
 
   const content = el("div", {}, [
@@ -724,14 +703,18 @@ function viewRoundEnd({ onNavigate }) {
     el("p", { class: "p", text: `La palabra era: ${currentWord}` }),
     el("p", { class: "p", text: `Impostores: ${impostors}` }),
     el("div", { class: "actions" }, [
-      el("button", { class: "btn btn-primary", type: "button", onclick: () => {
-        resetGame(state);
-        onNavigate("/");
-      } }, ["Nueva partida"]),
-      el("button", { class: "btn btn-secondary", type: "button", onclick: () => {
-        resetGame(state);
-        onNavigate("/");
-      } }, ["Volver al inicio"]),
+      el("button", {
+        class: "btn btn-primary", type: "button", onclick: () => {
+          resetGame(state);
+          onNavigate("/");
+        }
+      }, ["Nueva partida"]),
+      el("button", {
+        class: "btn btn-secondary", type: "button", onclick: () => {
+          resetGame(state);
+          onNavigate("/");
+        }
+      }, ["Volver al inicio"]),
     ]),
   ]);
 
