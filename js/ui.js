@@ -634,11 +634,7 @@ function viewRound({ onNavigate }) {
         onclick: () => {
           const res = nextPlayer(state);
           if (res.finished) {
-            // No navegar a round-end, dejar que viewRound maneje la fase "ready"
-            const root = document.getElementById("app");
-            if (root) {
-              renderApp(root, state.route, { onNavigate });
-            }
+            onNavigate("/round-end");
           } else {
             // Re-renderizar la app con el nuevo estado del jugador
             const root = document.getElementById("app");
