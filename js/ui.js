@@ -490,11 +490,14 @@ function viewRound({ onNavigate }) {
         el("button", {
           class: "btn btn-primary btn-start",
           type: "button",
-          onclick: () => {
+          onclick: (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
             startGamePhase(state);
-            // Elegir un jugador aleatorio para comenzar
-            const randomIndex = Math.floor(Math.random() * players.length);
-            state.game.currentPlayerIndex = randomIndex;
+            // Iniciar siempre en el Jugador 1 (índice 0)
+            state.game.currentPlayerIndex = 0;
+
             const root = document.getElementById("app");
             if (root) {
               renderApp(root, state.route, { onNavigate });
@@ -589,33 +592,36 @@ function viewRound({ onNavigate }) {
   const refreshReveal = () => {
     revealArea.innerHTML = "";
 
-    // Crear la carta volteable
+    // Crear la carta volteable que ahora es también el botón
     const isImpostor = player.role === "impostor";
     flipCard = el("div", { class: "flip-card" }, [
       el("div", { class: "flip-card-inner" }, [
-        el("div", { class: "flip-card-front" }, ["¿Lista para revelar?"]),
+        el("div", { class: "flip-card-front" }, [
+          el("div", { style: "display: flex; flex-direction: column; gap: 8px;" }, [
+            el("span", { text: "¿Listo para revelar?" }),
+            el("span", {
+              class: "small",
+              style: "font-size: 14px; opacity: 0.8; font-weight: 500;",
+              text: "(Mantén presionado para ver)"
+            })
+          ])
+        ]),
         el("div", { class: `flip-card-back ${isImpostor ? "impostor" : ""}` }, [
           isImpostor ? "¡ERES EL IMPOSTOR!" : currentWord
         ])
       ])
     ]);
 
-    revealArea.append(flipCard);
-
-    // Botón que mantiene presionado para revelar
-    revealBtn = el("button", {
-      class: "btn btn-reveal",
-      type: "button",
-    }, ["Mantener presionado para revelar"]);
-
-    // Eventos para revelar/ocultar
+    // Eventos para revelar/ocultar (ahora en la carta directamente)
     const handleReveal = (e) => {
       e.preventDefault();
+      e.stopPropagation();
       flipCard.classList.add("flipped");
     };
 
     const handleHide = (e) => {
       e.preventDefault();
+      e.stopPropagation();
       flipCard.classList.remove("flipped");
       if (!player.revealed && (e.type === 'mouseup' || e.type === 'touchend')) {
         revealCurrentPlayer(state);
@@ -624,29 +630,42 @@ function viewRound({ onNavigate }) {
       }
     };
 
-    revealBtn.addEventListener('mousedown', handleReveal);
-    revealBtn.addEventListener('touchstart', handleReveal);
-    revealBtn.addEventListener('mouseup', handleHide);
-    revealBtn.addEventListener('touchend', handleHide);
-    revealBtn.addEventListener('mouseleave', () => flipCard.classList.remove("flipped"));
+    flipCard.addEventListener('mousedown', handleReveal);
+    flipCard.addEventListener('touchstart', handleReveal);
+    flipCard.addEventListener('mouseup', handleHide);
+    flipCard.addEventListener('touchend', handleHide);
+    flipCard.addEventListener('mouseleave', () => flipCard.classList.remove("flipped"));
 
-    revealArea.append(revealBtn);
+    revealArea.append(flipCard);
 
-    nextBtn = el("button", {
-      class: player.revealed ? "btn btn-primary" : "btn btn-secondary",
-      type: "button",
-      style: "margin-top: 12px;",
-      onclick: () => {
-        const res = nextPlayer(state);
-        if (res.finished) {
-          onNavigate("/round-end");
-        } else {
-          const root = document.getElementById("app");
-          if (root) renderApp(root, state.route, { onNavigate });
-        }
-      },
-    }, ["Siguiente jugador"]);
-    revealArea.append(nextBtn);
+    // UNIFICACIÓN: La carta es el único elemento hasta que se revela
+    if (player.revealed) {
+      // Botón para SIGUIENTE (solo aparece tras revelar)
+      const nextBtn = el("button", {
+        class: "btn btn-primary",
+        type: "button",
+        style: "margin-top: 12px;",
+        onclick: (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          if (window._isNextRunning) return;
+          window._isNextRunning = true;
+
+          const res = nextPlayer(state);
+          if (res.finished) {
+            onNavigate("/round-end");
+          } else {
+            const root = document.getElementById("app");
+            if (root) renderApp(root, state.route, { onNavigate });
+          }
+
+          setTimeout(() => { window._isNextRunning = false; }, 600);
+        },
+      }, ["Siguiente jugador"]);
+
+      revealArea.append(nextBtn);
+    }
   };
   refreshReveal();
 
