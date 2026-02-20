@@ -54,12 +54,13 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
+  padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
 .shell {
   width: 100%;
   max-width: var(--max);
-  padding: 18px 16px 22px;
+  padding: 18px 16px 32px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -463,5 +464,40 @@ body {
   font-size: 18px;
   font-weight: 800;
   margin-top: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-height: 700px) {
+  .shell {
+    padding: 14px 16px 24px;
+    gap: 12px;
+  }
+
+  .section {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .btn-start {
+    margin-bottom: 12px;
+    min-height: 48px;
+  }
+}
+
+@media (max-height: 600px) {
+  .shell {
+    padding: 12px 16px 20px;
+    gap: 10px;
+  }
+
+  .section {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .btn-start {
+    margin-bottom: 10px;
+    min-height: 44px;
+  }
 }
