@@ -1,5 +1,5 @@
 import { state } from "./state.js";
-import { loadPersistedState, savePersistedState, ensureCategories } from "./storage.js";
+import { loadPersistedState, savePersistedState, ensureCategories, clearPersistedState } from "./storage.js";
 import { ensureDefaultCategories } from "./categories.js";
 import { createNewGameDraft } from "./game.js";
 import { renderApp } from "./ui.js";
@@ -39,6 +39,9 @@ function render() {
 }
 
 function hydrate() {
+  // Limpiar completamente el estado para evitar problemas
+  clearPersistedState();
+  
   const persisted = loadPersistedState();
   if (persisted?.settings) {
     state.settings = { ...state.settings, ...persisted.settings };
@@ -46,13 +49,8 @@ function hydrate() {
   if (persisted?.categories) {
     state.categories = persisted.categories;
   }
-  if (persisted?.game) {
-    state.game = { ...createNewGameDraft(), ...persisted.game };
-    // Forzar gamePhase a setup si está en ready para evitar bucles
-    if (state.game.gamePhase === "ready") {
-      state.game.gamePhase = "setup";
-    }
-  }
+  // No cargar game state para empezar fresco
+  
   ensureCategories(state);
   ensureDefaultCategories(state);
 }
