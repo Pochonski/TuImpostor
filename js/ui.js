@@ -580,7 +580,7 @@ function viewRound({ onNavigate }) {
     
     revealArea.append(flipCard);
     
-    if (!revealed) {
+    if (!player.revealed) {
       // Botón que mantiene presionado para revelar
       revealBtn = el("button", {
         class: "btn btn-primary",
