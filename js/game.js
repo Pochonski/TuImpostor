@@ -79,6 +79,8 @@ export function startGame(state) {
   state.game.currentWord = word;
   state.game.revealed = false;
   state.game.currentPlayerIndex = 0;
+  state.game.gamePhase = "playing"; // Establecer fase de juego
+  state.game.startShown = true; // No mostrar pantalla de quién comienza
 
   return { ok: true, word };
 }
