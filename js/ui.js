@@ -1331,8 +1331,11 @@ function viewRound({ onNavigate }) {
   if (gamePhase === "start") {
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
     const firstPlayer = players[0];
 =======
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
     // Seleccionar un jugador aleatorio para comenzar
@@ -1340,6 +1343,9 @@ function viewRound({ onNavigate }) {
     const randomPlayer = players[randomIndex];
     
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
@@ -1349,7 +1355,11 @@ function viewRound({ onNavigate }) {
         el("p", { class: "p", style: "text-align: center; font-size: 18px; margin: 20px 0;" }, [
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
           `🎮 ${firstPlayer.label} comienza primero`
+=======
+          `🎮 ${randomPlayer.label} comienza primero`
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
           `🎮 ${randomPlayer.label} comienza primero`
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js

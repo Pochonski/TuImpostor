@@ -215,7 +215,11 @@ export function startGame(state) {
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
   state.game.startShown = false;
+=======
+  state.game.startShown = true;
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
 =======
   state.game.startShown = true;
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
@@ -269,7 +273,16 @@ export function revealImpostors(state) {
 }
 
 export function resetGame(state) {
-  state.game = createNewGameDraft();
+  // Guardar configuración que queremos mantener
+  const savedConfig = {
+    playerCount: state.game.playerCount,
+    impostorCount: state.game.impostorCount,
+    playerNames: state.game.playerNames,
+    categoryIds: state.game.categoryIds
+  };
+  
+  // Crear nuevo borrador pero restaurar la configuración guardada
+  state.game = { ...createNewGameDraft(), ...savedConfig };
   return { ok: true };
 }
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
