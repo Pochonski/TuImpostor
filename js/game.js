@@ -12,9 +12,29 @@ export function createNewGameDraft() {
     currentWord: null,
     revealed: false,
     currentPlayerIndex: 0,
-    gamePhase: "setup", // setup, playing, ready, reveal
+    gamePhase: "setup", // setup, playing, start, voting, reveal
     startShown: false,
   };
+}
+
+export function votePlayer(state, playerIndex) {
+  const player = state.game.players[playerIndex];
+  if (!player) return { ok: false, error: "Jugador no encontrado" };
+  
+  // Inicializar array de jugadores votados si no existe
+  if (!state.game.votedPlayers) {
+    state.game.votedPlayers = [];
+  }
+  
+  // Agregar jugador a la lista de votados si no está ya
+  if (!state.game.votedPlayers.includes(playerIndex)) {
+    state.game.votedPlayers.push(playerIndex);
+  }
+  
+  state.game.votedPlayer = player;
+  state.game.gamePhase = "vote-result";
+  
+  return { ok: true, isImpostor: player.role === "impostor" };
 }
 
 export function validateGameDraft(state) {
@@ -80,11 +100,11 @@ export function startGame(state) {
   state.game.currentWord = word;
   state.game.revealed = false;
   state.game.currentPlayerIndex = 0;
-  // Poner la fase en "ready" para mostrar la pantalla "¡Todos listos!" antes
-  // de comenzar la partida y seleccionar quién inicia.
-  state.game.status = "ready";
-  state.game.gamePhase = "ready";
-  state.game.startShown = false;
+  // Ir directamente a la fase de juego, omitir "ready"
+  state.game.gamePhase = "playing";
+  state.game.startShown = true;
+  // Limpiar lista de jugadores votados para nueva partida
+  state.game.votedPlayers = [];
 
   return { ok: true, word };
 }
@@ -123,7 +143,18 @@ export function revealImpostors(state) {
 }
 
 export function resetGame(state) {
-  state.game = createNewGameDraft();
+  // Guardar configuración que queremos mantener
+  const savedConfig = {
+    playerCount: state.game.playerCount,
+    impostorCount: state.game.impostorCount,
+    playerNames: state.game.playerNames,
+    categoryIds: state.game.categoryIds
+  };
+  
+  // Crear nuevo borrador pero restaurar la configuración guardada
+  state.game = { ...createNewGameDraft(), ...savedConfig };
+  // Limpiar lista de jugadores votados
+  state.game.votedPlayers = [];
   return { ok: true };
 }
 =======
