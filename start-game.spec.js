@@ -16,7 +16,7 @@ test('Iniciar una partida', async ({ page, context }) => {
   });
 
   // Ir a la página principal
-  await page.goto('http://localhost:5173/');
+  await page.goto('http://localhost:5174/');
   await page.waitForLoadState('networkidle');
   console.log('✅ Página cargada');
 
@@ -108,7 +108,7 @@ test('Iniciar una partida', async ({ page, context }) => {
 
 test('Marcar y desmarcar checkboxes', async ({ page }) => {
   // Ir a nueva partida
-  await page.goto('http://localhost:5173/');
+  await page.goto('http://localhost:5174/');
   await page.waitForLoadState('networkidle');
   await page.click('button:has-text("Nueva partida")');
   await page.waitForURL('/new');

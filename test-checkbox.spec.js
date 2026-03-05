@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test('checkbox categories state bug', async ({ page }) => {
   // Asegúrate que el servidor esté corriendo en 5173
-  await page.goto('http://localhost:5173/');
+  await page.goto('http://localhost:5174');
 
   // Navegar a Nueva partida
   await page.click('button:has-text("Nueva partida")');

@@ -1,7 +1,7 @@
-const { test, expect } = require('@playwright/test');
+import { test, expect } from '@playwright/test';
 
 test('Verificar estado y flujo del juego', async ({ page }) => {
-  await page.goto('http://localhost:5173');
+  await page.goto('http://localhost:5174');
   await page.waitForLoadState('networkidle');
 
   console.log('🧪 Test: Verificando estado y flujo');

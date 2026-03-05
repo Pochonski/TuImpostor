@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('App carga correctamente', async ({ page }) => {
-  await page.goto('http://localhost:5173/');
+  await page.goto('http://localhost:5174/');
   await page.waitForLoadState('networkidle');
   
   console.log('✅ Página cargada');
@@ -52,7 +52,7 @@ test('App carga correctamente', async ({ page }) => {
 });
 
 test('Revelación de carta funciona', async ({ page }) => {
-  await page.goto('http://localhost:5173/');
+  await page.goto('http://localhost:5174/');
   await page.waitForLoadState('networkidle');
   
   // Navegar a Nueva partida

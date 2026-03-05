@@ -1,7 +1,7 @@
 import http from 'http';
 
 const urls = [
-  'http://localhost:5173/',
+  'http://localhost:5174/',
   'http://192.168.11.100:5173/',
   'http://192.168.56.1:5173/',
   'http://10.144.117.2:5173/',

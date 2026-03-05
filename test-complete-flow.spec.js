@@ -1,8 +1,8 @@
-const { test, expect } = require('@playwright/test');
+import { test, expect } from '@playwright/test';
 
 test('Flujo completo del juego - nuevas funcionalidades', async ({ page }) => {
   // Usar la URL correcta del servidor local
-  await page.goto('http://localhost:5173');
+  await page.goto('http://localhost:5174');
   await page.waitForLoadState('networkidle');
 
   console.log('🧪 Test: Iniciando prueba del flujo completo del juego');

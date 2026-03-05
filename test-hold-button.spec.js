@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test('Hold button funciona correctamente', async ({ page }) => {
   // Ir a nueva partida
-  await page.goto('http://localhost:5173/');
+  await page.goto('http://localhost:5174');
   await page.waitForLoadState('networkidle');
   await page.click('button:has-text("Nueva partida")');
   await page.waitForURL('/new');
