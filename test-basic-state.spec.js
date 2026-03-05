@@ -1,17 +1,73 @@
 import { test, expect } from '@playwright/test';
 
 test('Verificar estado básico de la aplicación', async ({ page }) => {
+  // Capturar errores de consola
+  const consoleErrors = [];
+  const consoleLogs = [];
+  page.on('console', msg => {
+    if (msg.type() === 'error') {
+      consoleErrors.push(msg.text());
+    }
+    consoleLogs.push(`[${msg.type()}] ${msg.text()}`);
+  });
+
   await page.goto('http://localhost:5174');
   await page.waitForLoadState('networkidle');
 
   console.log('🧪 Test: Verificando estado básico');
 
+  // Debug: mostrar contenido de la página
+  const pageContent = await page.content();
+  console.log('📄 Contenido de la página (primeros 1000 caracteres):');
+  console.log(pageContent.substring(0, 1000));
+
+  // Debug: mostrar errores de consola
+  if (consoleErrors.length > 0) {
+    console.log('❌ Errores de consola encontrados:');
+    consoleErrors.forEach(error => console.log(`  - ${error}`));
+  }
+
+  // Debug: verificar si bundle.js se cargó
+  const bundleLoaded = await page.evaluate(() => {
+    const scripts = Array.from(document.querySelectorAll('script'));
+    return scripts.some(script => script.src && script.src.includes('bundle.js'));
+  });
+  console.log(`📦 Bundle.js cargado: ${bundleLoaded}`);
+
   // 1. Verificar que la página carga
+  const bodyVisible = await page.locator('body').isVisible();
+  console.log(`👁️ Body visible: ${bodyVisible}`);
+
+  if (!bodyVisible) {
+    console.log('❌ Body no es visible, esperando...');
+    await page.waitForTimeout(2000);
+  }
+
   await expect(page.locator('body')).toBeVisible();
   console.log('✅ Página cargada correctamente');
 
-  // 2. Navegar a Nueva partida
-  await page.click('button:has-text("Nueva partida")');
+  // 2. Esperar a que aparezca el botón "Nueva partida"
+  console.log('🔄 Esperando botón "Nueva partida"...');
+  const newGameButton = page.locator('button:has-text("Nueva partida")');
+
+  try {
+    await expect(newGameButton).toBeVisible({ timeout: 10000 });
+    console.log('✅ Botón "Nueva partida" encontrado');
+  } catch (error) {
+    console.log('❌ Botón "Nueva partida" no encontrado');
+
+    // Debug: mostrar todos los botones disponibles
+    const allButtons = await page.locator('button').allTextContents();
+    console.log('🔍 Botones encontrados en la página:');
+    allButtons.forEach((text, index) => console.log(`  ${index + 1}. "${text}"`));
+
+    // Debug: mostrar HTML del body
+    const bodyHtml = await page.locator('body').innerHTML();
+    console.log('🔍 HTML del body:');
+    console.log(bodyHtml.substring(0, 2000));
+
+    throw error;
+  }
   await page.waitForTimeout(1000);
 
   // 3. Verificar elementos de la vista nueva partida
