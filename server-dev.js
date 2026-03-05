@@ -4,6 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const distDir = path.join(__dirname, 'dist');
 const hostname = '0.0.0.0';
 const port = 5174;
 
@@ -19,18 +20,18 @@ const mimeTypes = {
 };
 
 const server = http.createServer((req, res) => {
-  let filePath = path.join(__dirname, req.url === '/' ? 'index.html' : req.url);
+  let filePath = path.join(distDir, req.url === '/' ? 'index.html' : req.url);
   const ext = path.extname(filePath).toLowerCase();
 
   // Si no tiene extensión o es una ruta, servir index.html (SPA)
   if (!ext || req.url === '/') {
-    filePath = path.join(__dirname, 'index.html');
+    filePath = path.join(distDir, 'index.html');
   }
 
   fs.readFile(filePath, (err, data) => {
     if (err) {
       // Para rutas desconocidas, servir index.html (SPA)
-      fs.readFile(path.join(__dirname, 'index.html'), (fallbackErr, fallbackData) => {
+      fs.readFile(path.join(distDir, 'index.html'), (fallbackErr, fallbackData) => {
         if (fallbackErr) {
           res.writeHead(404, { 'Content-Type': 'text/plain' });
           res.end('404 Not Found');
