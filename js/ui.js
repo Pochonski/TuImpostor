@@ -853,6 +853,7 @@ function viewRound({ onNavigate }) {
   // Eliminar botón de revelar impostores de esta pantalla - ahora va en pantalla separada
   const actions = [];
 
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
   actions.push(
     el("button", {
       class: "btn btn-secondary", type: "button", onclick: () => {
@@ -2020,6 +2021,8 @@ function viewRound({ onNavigate }) {
   // Eliminar botón de revelar impostores de esta pantalla - ahora va en pantalla separada
   const actions = [];
 
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
   actions.push(
     el("button", {
       class: "btn btn-secondary", type: "button", onclick: () => {
