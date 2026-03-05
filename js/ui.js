@@ -802,7 +802,7 @@ export function renderApp(root, route, { onNavigate }) {
 =======
 import { state } from "./state.js";
 import { createCategory, deleteCategory, addWord, removeWord, getCategoryById } from "./categories.js";
-import { startGame, revealCurrentPlayer, nextPlayer, resetGame, validateGameDraft, startGamePhase, revealImpostors } from "./game.js";
+import { startGame, revealCurrentPlayer, nextPlayer, resetGame, validateGameDraft, startGamePhase, revealImpostors, votePlayer } from "./game.js";
 
 function el(tag, attrs = {}, children = []) {
   const node = document.createElement(tag);
@@ -1332,8 +1332,20 @@ function viewRound({ onNavigate }) {
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
     const firstPlayer = players[0];
 =======
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
@@ -1344,6 +1356,18 @@ function viewRound({ onNavigate }) {
     
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
@@ -1356,7 +1380,23 @@ function viewRound({ onNavigate }) {
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
           `🎮 ${firstPlayer.label} comienza primero`
+=======
+          `🎮 ${randomPlayer.label} comienza primero`
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+          `🎮 ${randomPlayer.label} comienza primero`
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+          `🎮 ${randomPlayer.label} comienza primero`
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+          `🎮 ${randomPlayer.label} comienza primero`
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
           `🎮 ${randomPlayer.label} comienza primero`
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
@@ -1383,6 +1423,38 @@ function viewRound({ onNavigate }) {
           }
         }, ["Revelar impostores"]),
         el("button", {
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+=======
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+          class: "btn btn-primary",
+          type: "button",
+          onclick: () => {
+            state.game.gamePhase = "voting";
+            const root = document.getElementById("app");
+            if (root) {
+              renderApp(root, state.route, { onNavigate });
+            }
+          }
+        }, ["Votar a un jugador"]),
+        el("button", {
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
           class: "btn btn-secondary", type: "button", onclick: () => {
             if (confirm("¿Salir de la partida? Se perderá el progreso.")) {
               resetGame(state);
@@ -1396,6 +1468,192 @@ function viewRound({ onNavigate }) {
     return { title: "Inicio del juego", subtitle: "Turno inicial", content };
   }
 
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+=======
+  // Si estamos en fase "voting", mostrar pantalla para votar jugador
+  if (gamePhase === "voting") {
+    const playerButtons = players.map((player, index) => 
+      el("button", {
+        class: "btn btn-player",
+        type: "button",
+        onclick: () => {
+          const result = votePlayer(state, index);
+=======
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+  // Si estamos en fase "voting", mostrar pantalla para votar jugador
+  if (gamePhase === "voting") {
+    // Filtrar jugadores que ya han sido votados
+    const votedPlayers = state.game.votedPlayers || [];
+    const availablePlayers = players.filter((player, index) => !votedPlayers.includes(index));
+    
+    const playerButtons = availablePlayers.map((player, originalIndex) => {
+      const playerIndex = players.indexOf(player);
+      return el("button", {
+        class: "btn btn-player",
+        type: "button",
+        onclick: () => {
+          const result = votePlayer(state, playerIndex);
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+          if (result.ok) {
+            const root = document.getElementById("app");
+            if (root) {
+              renderApp(root, state.route, { onNavigate });
+            }
+          }
+        }
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+      }, [player.label])
+    );
+=======
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+      }, [player.label]);
+    });
+
+    // Mostrar mensaje si no quedan jugadores disponibles para votar
+    const noPlayersMessage = availablePlayers.length === 0 ? 
+      el("p", { class: "p", style: "text-align: center; color: var(--muted); margin: 20px 0;" }, [
+        "Todos los jugadores ya han sido votados"
+      ]) : null;
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+
+    const content = el("div", {}, [
+      el("h1", { class: "h1", text: "¿Quién es el impostor?" }),
+      el("p", { class: "p", text: "Selecciona al jugador que crees que es el impostor:" }),
+      el("div", { class: "player-list" }, playerButtons),
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+=======
+      noPlayersMessage,
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+      noPlayersMessage,
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+      noPlayersMessage,
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+      el("div", { class: "actions" }, [
+        el("button", {
+          class: "btn btn-secondary", type: "button", onclick: () => {
+            state.game.gamePhase = "start";
+            const root = document.getElementById("app");
+            if (root) {
+              renderApp(root, state.route, { onNavigate });
+            }
+          }
+        }, ["Cancelar"]),
+      ]),
+    ]);
+
+    return { title: "Votación", subtitle: "Elige al impostor", content };
+  }
+
+  // Si estamos en fase "vote-result", mostrar resultado de la votación
+  if (gamePhase === "vote-result") {
+    const votedPlayer = state.game.votedPlayer;
+    const isImpostor = votedPlayer.role === "impostor";
+    
+    const content = el("div", {}, [
+      el("h1", { class: "h1", text: isImpostor ? "¡Correcto!" : "¡Incorrecto!" }),
+      el("div", { class: "card" }, [
+        el("p", { class: "p", style: "text-align: center; font-size: 18px; margin: 20px 0;" }, [
+          `${votedPlayer.label} ${isImpostor ? "SÍ" : "NO"} era el impostor`
+        ]),
+        el("p", { class: "p", style: "text-align: center; font-size: 16px; color: " + (isImpostor ? "var(--accent-2)" : "var(--danger)") }, [
+          isImpostor ? "🎉 ¡Buena deducción!" : "😅 ¡Sigue intentando!"
+        ]),
+      ]),
+      el("div", { class: "actions" }, [
+        el("button", {
+          class: "btn btn-danger",
+          type: "button",
+          onclick: () => {
+            if (confirm("¿Revelar impostores? Esto terminará el juego.")) {
+              revealImpostors(state);
+              const root = document.getElementById("app");
+              if (root) {
+                renderApp(root, state.route, { onNavigate });
+              }
+            }
+          }
+        }, ["Revelar impostores"]),
+        el("button", {
+          class: "btn btn-primary",
+          type: "button",
+          onclick: () => {
+            state.game.gamePhase = "voting";
+            const root = document.getElementById("app");
+            if (root) {
+              renderApp(root, state.route, { onNavigate });
+            }
+          }
+        }, ["Votar a un jugador"]),
+        el("button", {
+          class: "btn btn-secondary", type: "button", onclick: () => {
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+            state.game.gamePhase = "start";
+            const root = document.getElementById("app");
+            if (root) {
+              renderApp(root, state.route, { onNavigate });
+=======
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+            // Iniciar nueva partida con misma configuración pero palabra diferente
+            const result = startGame(state);
+            if (result.ok) {
+              const root = document.getElementById("app");
+              if (root) {
+                renderApp(root, state.route, { onNavigate });
+              }
+            } else {
+              alert(result.reason);
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+            }
+          }
+        }, ["Seguir jugando"]),
+      ]),
+    ]);
+
+    return { title: "Resultado de votación", subtitle: isImpostor ? "¡Acertaste!" : "¡Fallaste!", content };
+  }
+
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
   // Si estamos en fase "reveal", mostrar pantalla de revelar impostores
   if (gamePhase === "reveal") {
     const impostors = players.filter(p => p.role === "impostor");

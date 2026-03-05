@@ -140,9 +140,44 @@ export function createNewGameDraft() {
     currentWord: null,
     revealed: false,
     currentPlayerIndex: 0,
-    gamePhase: "setup", // setup, playing, ready, reveal
+    gamePhase: "setup", // setup, playing, start, voting, reveal
     startShown: false,
   };
+}
+
+export function votePlayer(state, playerIndex) {
+  const player = state.game.players[playerIndex];
+  if (!player) return { ok: false, error: "Jugador no encontrado" };
+  
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
+=======
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
+  // Inicializar array de jugadores votados si no existe
+  if (!state.game.votedPlayers) {
+    state.game.votedPlayers = [];
+  }
+  
+  // Agregar jugador a la lista de votados si no está ya
+  if (!state.game.votedPlayers.includes(playerIndex)) {
+    state.game.votedPlayers.push(playerIndex);
+  }
+  
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
+  state.game.votedPlayer = player;
+  state.game.gamePhase = "vote-result";
+  
+  return { ok: true, isImpostor: player.role === "impostor" };
 }
 
 export function validateGameDraft(state) {
@@ -216,6 +251,10 @@ export function startGame(state) {
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
   state.game.startShown = false;
 =======
   state.game.startShown = true;
@@ -234,6 +273,20 @@ export function startGame(state) {
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
 =======
   state.game.startShown = true;
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
+=======
+  state.game.startShown = true;
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
+=======
+  state.game.startShown = true;
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
+=======
+  state.game.startShown = true;
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
+=======
+  state.game.startShown = true;
+  // Limpiar lista de jugadores votados para nueva partida
+  state.game.votedPlayers = [];
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
 
   return { ok: true, word };
@@ -283,6 +336,21 @@ export function resetGame(state) {
   
   // Crear nuevo borrador pero restaurar la configuración guardada
   state.game = { ...createNewGameDraft(), ...savedConfig };
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
+=======
+  // Limpiar lista de jugadores votados
+  state.game.votedPlayers = [];
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
+=======
+  // Limpiar lista de jugadores votados
+  state.game.votedPlayers = [];
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
+=======
+  // Limpiar lista de jugadores votados
+  state.game.votedPlayers = [];
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
   return { ok: true };
 }
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
