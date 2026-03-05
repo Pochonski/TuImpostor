@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const hostname = '0.0.0.0';
-const port = 5173;
+const port = 5174;
 
 const mimeTypes = {
   '.html': 'text/html',
