@@ -41,6 +41,7 @@ export function votePlayer(state, playerIndex) {
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
 export function validateGameDraft(state) {
   const { categoryIds, playerCount, impostorCount } = state.game;
   if (!categoryIds || !categoryIds.length) return { ok: false, reason: "Selecciona al menos una categoría" };
@@ -229,6 +230,8 @@ export function votePlayer(state, playerIndex) {
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
 =======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
 export function validateGameDraft(state) {
   const { categoryIds, playerCount, impostorCount } = state.game;
   if (!categoryIds || !categoryIds.length) return { ok: false, reason: "Selecciona al menos una categoría" };
@@ -309,6 +312,7 @@ export function startGame(state) {
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
   state.game.startShown = false;
 =======
   state.game.startShown = true;
@@ -336,6 +340,11 @@ export function startGame(state) {
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
 =======
   state.game.startShown = true;
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
+=======
+  state.game.startShown = true;
+  // Limpiar lista de jugadores votados para nueva partida
+  state.game.votedPlayers = [];
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
 =======
   state.game.startShown = true;
@@ -423,6 +432,11 @@ export function resetGame(state) {
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/game.js
+=======
+  // Limpiar lista de jugadores votados
+  state.game.votedPlayers = [];
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/game.js
 =======
   // Limpiar lista de jugadores votados
   state.game.votedPlayers = [];
