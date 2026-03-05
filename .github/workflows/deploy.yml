@@ -25,9 +25,6 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Run tests
-        run: npm run test:e2e
-
       - name: Build
         run: |
           mkdir dist
@@ -35,6 +32,9 @@ jobs:
           cp style.css dist/
           cp -r js dist/
           cp bundle.js dist/
+
+      - name: Run tests
+        run: npm run test:e2e
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
