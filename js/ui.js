@@ -1336,8 +1336,11 @@ function viewRound({ onNavigate }) {
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
     const firstPlayer = players[0];
 =======
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
@@ -1360,6 +1363,9 @@ function viewRound({ onNavigate }) {
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
@@ -1384,7 +1390,11 @@ function viewRound({ onNavigate }) {
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
           `🎮 ${firstPlayer.label} comienza primero`
+=======
+          `🎮 ${randomPlayer.label} comienza primero`
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
           `🎮 ${randomPlayer.label} comienza primero`
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
@@ -1427,7 +1437,10 @@ function viewRound({ onNavigate }) {
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 =======
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
@@ -1448,6 +1461,9 @@ function viewRound({ onNavigate }) {
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
@@ -1472,6 +1488,7 @@ function viewRound({ onNavigate }) {
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 =======
   // Si estamos en fase "voting", mostrar pantalla para votar jugador
   if (gamePhase === "voting") {
@@ -1482,6 +1499,8 @@ function viewRound({ onNavigate }) {
         onclick: () => {
           const result = votePlayer(state, index);
 =======
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
@@ -1501,6 +1520,9 @@ function viewRound({ onNavigate }) {
           const result = votePlayer(state, playerIndex);
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
@@ -1516,9 +1538,12 @@ function viewRound({ onNavigate }) {
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
       }, [player.label])
     );
 =======
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
@@ -1533,6 +1558,9 @@ function viewRound({ onNavigate }) {
       ]) : null;
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
@@ -1546,6 +1574,10 @@ function viewRound({ onNavigate }) {
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+=======
+      noPlayersMessage,
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
       noPlayersMessage,
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
@@ -1615,11 +1647,14 @@ function viewRound({ onNavigate }) {
           class: "btn btn-secondary", type: "button", onclick: () => {
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
             state.game.gamePhase = "start";
             const root = document.getElementById("app");
             if (root) {
               renderApp(root, state.route, { onNavigate });
 =======
+=======
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
             // Iniciar nueva partida con misma configuración pero palabra diferente
@@ -1632,6 +1667,9 @@ function viewRound({ onNavigate }) {
             } else {
               alert(result.reason);
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
@@ -1647,6 +1685,9 @@ function viewRound({ onNavigate }) {
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
 <<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+<<<<<<< C:/Users/josep/OneDrive - Secsa/Documentos/Joseph/Proyectos/TuImpostor/TuImpostor/js/ui.js
+>>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
+=======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
 =======
 >>>>>>> C:/Users/josep/.windsurf/worktrees/TuImpostor/TuImpostor-6d8b1b26/js/ui.js
