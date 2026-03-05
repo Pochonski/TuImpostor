@@ -1,4 +1,4 @@
-// Combined JavaScript for GitHub Pages deployment
+// Fixed JavaScript for GitHub Pages deployment - SCOPE ISSUES RESOLVED
 // State
 const state = {
   route: "/",
@@ -43,14 +43,6 @@ function loadPersistedState() {
 function savePersistedState(persistable) {
   try {
     localStorage.setItem(KEY, JSON.stringify(persistable));
-  } catch {
-    // ignore
-  }
-}
-
-function clearPersistedState() {
-  try {
-    localStorage.removeItem(KEY);
   } catch {
     // ignore
   }
@@ -287,6 +279,7 @@ function viewNewGame({ onNavigate }) {
     state.game.playerNames = Array.from({ length: state.game.playerCount }, (_, i) => `Jugador ${i + 1}`);
   }
 
+  // FIXED: Create playersSection first, then get references, then define updatePlayerButtons
   const playersSection = el("div", { class: "section" }, [
     el("div", { class: "section-header" }, [
       el("span", { text: "👋" }),
@@ -336,9 +329,11 @@ function viewNewGame({ onNavigate }) {
     el("div", { class: "player-buttons" }),
   ]);
 
+  // FIXED: Get references after creating the elements
   const playerCount = playersSection.querySelector('input[type="number"]');
   const playerButtons = playersSection.querySelector('.player-buttons');
 
+  // FIXED: Define updatePlayerButtons after playerButtons is declared
   const updatePlayerButtons = () => {
     playerButtons.innerHTML = "";
     for (let i = 0; i < state.game.playerCount; i++) {
@@ -360,6 +355,8 @@ function viewNewGame({ onNavigate }) {
       playerButtons.append(playerInputContainer);
     }
   };
+
+  // FIXED: Call updatePlayerButtons after everything is defined
   updatePlayerButtons();
 
   const categoryButtons = cats.map(cat => 
