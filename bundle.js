@@ -287,29 +287,6 @@ function viewNewGame({ onNavigate }) {
     state.game.playerNames = Array.from({ length: state.game.playerCount }, (_, i) => `Jugador ${i + 1}`);
   }
 
-  const updatePlayerButtons = () => {
-    playerButtons.innerHTML = "";
-    for (let i = 0; i < state.game.playerCount; i++) {
-      const playerNameInput = el("input", {
-        class: "player-input",
-        type: "text",
-        value: state.game.playerNames[i] || `Jugador ${i + 1}`,
-        placeholder: `Jugador ${i + 1}`,
-        onchange: (e) => {
-          state.game.playerNames[i] = e.target.value || `Jugador ${i + 1}`;
-        }
-      });
-      
-      const playerInputContainer = el("div", { class: "player-input-container" }, [
-        playerNameInput,
-        el("span", { class: "edit-icon" }, ["✏️"])
-      ]);
-      
-      playerButtons.append(playerInputContainer);
-    }
-  };
-  updatePlayerButtons();
-
   const playersSection = el("div", { class: "section" }, [
     el("div", { class: "section-header" }, [
       el("span", { text: "👋" }),
@@ -361,6 +338,29 @@ function viewNewGame({ onNavigate }) {
 
   const playerCount = playersSection.querySelector('input[type="number"]');
   const playerButtons = playersSection.querySelector('.player-buttons');
+
+  const updatePlayerButtons = () => {
+    playerButtons.innerHTML = "";
+    for (let i = 0; i < state.game.playerCount; i++) {
+      const playerNameInput = el("input", {
+        class: "player-input",
+        type: "text",
+        value: state.game.playerNames[i] || `Jugador ${i + 1}`,
+        placeholder: `Jugador ${i + 1}`,
+        onchange: (e) => {
+          state.game.playerNames[i] = e.target.value || `Jugador ${i + 1}`;
+        }
+      });
+      
+      const playerInputContainer = el("div", { class: "player-input-container" }, [
+        playerNameInput,
+        el("span", { class: "edit-icon" }, ["✏️"])
+      ]);
+      
+      playerButtons.append(playerInputContainer);
+    }
+  };
+  updatePlayerButtons();
 
   const categoryButtons = cats.map(cat => 
     el("button", {
