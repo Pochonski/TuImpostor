@@ -1,6 +1,6 @@
 import { state } from "./state.js";
 import { createCategory, deleteCategory, addWord, removeWord, getCategoryById } from "./categories.js";
-import { startGame, revealCurrentPlayer, nextPlayer, resetGame, validateGameDraft, startGamePhase, revealImpostors } from "./game.js";
+import { startGame, revealCurrentPlayer, nextPlayer, resetGame, validateGameDraft, startGamePhase, revealImpostors, votePlayer } from "./game.js";
 
 function el(tag, attrs = {}, children = []) {
   const node = document.createElement(tag);
@@ -140,7 +140,14 @@ function viewNewGame({ onNavigate }) {
           state.game.playerNames[i] = e.target.value || `Jugador ${i + 1}`;
         }
       });
-      playerButtons.append(playerNameInput);
+      
+      // Crear contenedor con ícono de lápiz
+      const playerInputContainer = el("div", { class: "player-input-container" }, [
+        playerNameInput,
+        el("span", { class: "edit-icon" }, ["✏️"])
+      ]);
+      
+      playerButtons.append(playerInputContainer);
     }
   };
   updatePlayerButtons();
@@ -518,6 +525,168 @@ function viewRound({ onNavigate }) {
     return { title: "¡Listos para jugar!", subtitle: "Fase de preparación", content };
   }
 
+  // Si estamos en fase "start", mostrar pantalla de inicio del juego
+  if (gamePhase === "start") {
+    // Seleccionar un jugador aleatorio para comenzar
+    const randomIndex = Math.floor(Math.random() * players.length);
+    const randomPlayer = players[randomIndex];
+    
+    const content = el("div", {}, [
+      el("h1", { class: "h1", text: "¡Inicia el juego!" }),
+      el("div", { class: "card" }, [
+        el("p", { class: "p", style: "text-align: center; font-size: 18px; margin: 20px 0;" }, [
+          `🎮 ${randomPlayer.label} comienza primero`
+        ]),
+      ]),
+      el("div", { class: "actions" }, [
+        el("button", {
+          class: "btn btn-danger",
+          type: "button",
+          onclick: () => {
+            if (confirm("¿Revelar impostores? Esto terminará el juego.")) {
+              revealImpostors(state);
+              const root = document.getElementById("app");
+              if (root) {
+                renderApp(root, state.route, { onNavigate });
+              }
+            }
+          }
+        }, ["Revelar impostores"]),
+        el("button", {
+          class: "btn btn-primary",
+          type: "button",
+          onclick: () => {
+            state.game.gamePhase = "voting";
+            const root = document.getElementById("app");
+            if (root) {
+              renderApp(root, state.route, { onNavigate });
+            }
+          }
+        }, ["Votar a un jugador"]),
+        el("button", {
+          class: "btn btn-secondary", type: "button", onclick: () => {
+            if (confirm("¿Salir de la partida? Se perderá el progreso.")) {
+              resetGame(state);
+              onNavigate("/");
+            }
+          }
+        }, ["Salir"]),
+      ]),
+    ]);
+
+    return { title: "Inicio del juego", subtitle: "Turno inicial", content };
+  }
+
+  // Si estamos en fase "voting", mostrar pantalla para votar jugador
+  if (gamePhase === "voting") {
+    // Filtrar jugadores que ya han sido votados
+    const votedPlayers = state.game.votedPlayers || [];
+    const availablePlayers = players.filter((player, index) => !votedPlayers.includes(index));
+    
+    const playerButtons = availablePlayers.map((player, originalIndex) => {
+      const playerIndex = players.indexOf(player);
+      return el("button", {
+        class: "btn btn-player",
+        type: "button",
+        onclick: () => {
+          const result = votePlayer(state, playerIndex);
+          if (result.ok) {
+            const root = document.getElementById("app");
+            if (root) {
+              renderApp(root, state.route, { onNavigate });
+            }
+          }
+        }
+      }, [player.label]);
+    });
+
+    // Mostrar mensaje si no quedan jugadores disponibles para votar
+    const noPlayersMessage = availablePlayers.length === 0 ? 
+      el("p", { class: "p", style: "text-align: center; color: var(--muted); margin: 20px 0;" }, [
+        "Todos los jugadores ya han sido votados"
+      ]) : null;
+
+    const content = el("div", {}, [
+      el("h1", { class: "h1", text: "¿Quién es el impostor?" }),
+      el("p", { class: "p", text: "Selecciona al jugador que crees que es el impostor:" }),
+      el("div", { class: "player-list" }, playerButtons),
+      noPlayersMessage,
+      el("div", { class: "actions" }, [
+        el("button", {
+          class: "btn btn-secondary", type: "button", onclick: () => {
+            state.game.gamePhase = "start";
+            const root = document.getElementById("app");
+            if (root) {
+              renderApp(root, state.route, { onNavigate });
+            }
+          }
+        }, ["Cancelar"]),
+      ]),
+    ]);
+
+    return { title: "Votación", subtitle: "Elige al impostor", content };
+  }
+
+  // Si estamos en fase "vote-result", mostrar resultado de la votación
+  if (gamePhase === "vote-result") {
+    const votedPlayer = state.game.votedPlayer;
+    const isImpostor = votedPlayer.role === "impostor";
+    
+    const content = el("div", {}, [
+      el("h1", { class: "h1", text: isImpostor ? "¡Correcto!" : "¡Incorrecto!" }),
+      el("div", { class: "card" }, [
+        el("p", { class: "p", style: "text-align: center; font-size: 18px; margin: 20px 0;" }, [
+          `${votedPlayer.label} ${isImpostor ? "SÍ" : "NO"} era el impostor`
+        ]),
+        el("p", { class: "p", style: "text-align: center; font-size: 16px; color: " + (isImpostor ? "var(--accent-2)" : "var(--danger)") }, [
+          isImpostor ? "🎉 ¡Buena deducción!" : "😅 ¡Sigue intentando!"
+        ]),
+      ]),
+      el("div", { class: "actions" }, [
+        el("button", {
+          class: "btn btn-danger",
+          type: "button",
+          onclick: () => {
+            if (confirm("¿Revelar impostores? Esto terminará el juego.")) {
+              revealImpostors(state);
+              const root = document.getElementById("app");
+              if (root) {
+                renderApp(root, state.route, { onNavigate });
+              }
+            }
+          }
+        }, ["Revelar impostores"]),
+        el("button", {
+          class: "btn btn-primary",
+          type: "button",
+          onclick: () => {
+            state.game.gamePhase = "voting";
+            const root = document.getElementById("app");
+            if (root) {
+              renderApp(root, state.route, { onNavigate });
+            }
+          }
+        }, ["Votar a un jugador"]),
+        el("button", {
+          class: "btn btn-secondary", type: "button", onclick: () => {
+            // Iniciar nueva partida con misma configuración pero palabra diferente
+            const result = startGame(state);
+            if (result.ok) {
+              const root = document.getElementById("app");
+              if (root) {
+                renderApp(root, state.route, { onNavigate });
+              }
+            } else {
+              alert(result.reason);
+            }
+          }
+        }, ["Seguir jugando"]),
+      ]),
+    ]);
+
+    return { title: "Resultado de votación", subtitle: isImpostor ? "¡Acertaste!" : "¡Fallaste!", content };
+  }
+
   // Si estamos en fase "reveal", mostrar pantalla de revelar impostores
   if (gamePhase === "reveal") {
     const impostors = players.filter(p => p.role === "impostor");
@@ -640,7 +809,8 @@ function viewRound({ onNavigate }) {
 
     // UNIFICACIÓN: La carta es el único elemento hasta que se revela
     if (player.revealed) {
-      // Botón para SIGUIENTE (solo aparece tras revelar)
+      // Botón para SIGUIENTE o INICIAR JUEGO (solo aparece tras revelar)
+      const isLastPlayer = currentPlayerIndex === players.length - 1;
       const nextBtn = el("button", {
         class: "btn btn-primary",
         type: "button",
@@ -652,45 +822,35 @@ function viewRound({ onNavigate }) {
           if (window._isNextRunning) return;
           window._isNextRunning = true;
 
-          const res = nextPlayer(state);
-          if (res.finished) {
-            onNavigate("/round-end");
-          } else {
+          if (isLastPlayer) {
+            // Último jugador: ir a pantalla de inicio de juego
+            state.game.gamePhase = "start";
+            state.game.currentPlayerIndex = 0;
+            state.game.revealed = false;
             const root = document.getElementById("app");
             if (root) renderApp(root, state.route, { onNavigate });
+          } else {
+            // Siguiente jugador
+            const res = nextPlayer(state);
+            if (res.finished) {
+              onNavigate("/round-end");
+            } else {
+              const root = document.getElementById("app");
+              if (root) renderApp(root, state.route, { onNavigate });
+            }
           }
 
           setTimeout(() => { window._isNextRunning = false; }, 600);
         },
-      }, ["Siguiente jugador"]);
+      }, [isLastPlayer ? "Iniciar juego" : "Siguiente jugador"]);
 
       revealArea.append(nextBtn);
     }
   };
   refreshReveal();
 
-  // Mostrar botón de revelar solo cuando todos han jugado
-  const isLastPlayer = currentPlayerIndex === players.length - 1;
-  const allPlayersRevealed = players.every(p => p.revealed);
-
+  // Eliminar botón de revelar impostores de esta pantalla - ahora va en pantalla separada
   const actions = [];
-
-  if (isLastPlayer && allPlayersRevealed) {
-    // Último jugador y todos han revelado - mostrar botón de revelar
-    actions.push(
-      el("button", {
-        class: "btn btn-danger", type: "button", onclick: () => {
-          if (confirm("¿Revelar impostores? Esto terminará el juego.")) {
-            revealImpostors(state);
-            const root = document.getElementById("app");
-            if (root) {
-              renderApp(root, state.route, { onNavigate });
-            }
-          }
-        }
-      }, ["Revelar impostores"])
-    );
-  }
 
   actions.push(
     el("button", {
@@ -754,7 +914,7 @@ function viewNotFound({ onNavigate }) {
 
 export function renderApp(root, route, { onNavigate }) {
   const routes = {
-    "/": viewMenu,
+    "/": viewNewGame,
     "/new": viewNewGame,
     "/settings": viewSettings,
     "/categories": viewCategories,
