@@ -1,4 +1,22 @@
 // Combined JavaScript for GitHub Pages deployment
+// Supabase Config - Reemplazar con tus credenciales
+const SUPABASE_URL = "https://ouqfgqwesqrewdchcwwb.supabase.co";
+const SUPABASE_KEY = "sb_publishable_kr5xL4w58XScZhuIegrA_Q_oZhhCya4";
+let supabase = null;
+
+if (typeof window.supabase !== "undefined" && SUPABASE_URL.includes("supabase.co")) {
+  supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+}
+
+const statusEl = document.getElementById("sync-status");
+function setSyncStatus(text, type = "") {
+  if (!statusEl) return;
+  statusEl.textContent = text;
+  statusEl.style.display = "flex";
+  statusEl.style.opacity = "1";
+  statusEl.className = `sync-status ${type}`;
+}
+
 // State
 const state = {
   route: "/",
@@ -10,6 +28,7 @@ const state = {
   settings: {
     sound: true,
     haptics: true,
+    nickname: localStorage.getItem("tuimpostor:nickname") || "",
   },
   categories: [],
   game: {
@@ -80,6 +99,100 @@ function ensureDefaultCategories(state) {
 
 function getCategoryById(state, id) {
   return state.categories.find(cat => cat.id === id);
+}
+
+// Sync Functions
+async function syncFromCloud(state) {
+  if (!supabase) return;
+  try {
+    setSyncStatus("Sincronizando...", "syncing");
+    const { data: cloudCats, error } = await supabase.from("categories").select("*");
+    if (error) throw error;
+    if (cloudCats) {
+      cloudCats.forEach(cloudCat => {
+        const local = state.categories.find(c => c.id === cloudCat.id);
+        if (!local) {
+          state.categories.push(cloudCat);
+        } else {
+          // Merge objects in words array by 'text' property
+          const cloudWords = Array.isArray(cloudCat.words) ? cloudCat.words : [];
+          const localWords = Array.isArray(local.words) ? local.words : [];
+
+          const wordsMap = new Map();
+          // Primero las locales
+          localWords.forEach(w => {
+            const key = typeof w === "string" ? w.toLowerCase() : w.text.toLowerCase();
+            wordsMap.set(key, typeof w === "string" ? { text: w, author: "Sistema" } : w);
+          });
+          // Luego las de la nube (que sobreescriben o añaden)
+          cloudWords.forEach(w => {
+            const key = typeof w === "string" ? w.toLowerCase() : w.text.toLowerCase();
+            if (!wordsMap.has(key)) {
+              wordsMap.set(key, typeof w === "string" ? { text: w, author: "Gente" } : w);
+            }
+          });
+          local.words = Array.from(wordsMap.values());
+        }
+      });
+    }
+    setSyncStatus("Online", "online");
+    setTimeout(() => { if (statusEl) statusEl.style.opacity = "0"; }, 3000);
+  } catch (err) {
+    console.warn("Cloud sync error:", err);
+    setSyncStatus("Offline", "error");
+  }
+}
+
+async function syncToCloud(category) {
+  if (!supabase) return;
+  try {
+    await supabase.from("categories").upsert({
+      id: category.id,
+      name: category.name,
+      words: category.words,
+      author: category.author || "Anónimo",
+      updated_at: new Date()
+    }, { onConflict: "id" });
+  } catch (err) {
+    console.warn("Push error (offline):", err);
+  }
+}
+
+function createCategory(state, name) {
+  const trimmed = name.trim();
+  if (!trimmed) return { ok: false, reason: "Nombre vacío" };
+  if (state.categories.some(c => c.name.toLowerCase() === trimmed.toLowerCase())) {
+    return { ok: false, reason: "Ya existe esa categoría" };
+  }
+  const newCat = {
+    id: `cat_${Date.now()}_${Math.random().toString(36).slice(2)}`,
+    name: trimmed,
+    words: [],
+    author: state.settings.nickname || "Anónimo"
+  };
+  state.categories.push(newCat);
+  syncToCloud(newCat);
+  return { ok: true, category: newCat };
+}
+
+function addWord(state, categoryId, word) {
+  const trimmed = word.trim();
+  if (!trimmed) return { ok: false, reason: "Palabra vacía" };
+  const cat = getCategoryById(state, categoryId);
+  if (!cat) return { ok: false, reason: "Categoría no encontrada" };
+
+  const alreadyExists = cat.words.some(w => {
+    const text = typeof w === "string" ? w : w.text;
+    return text.toLowerCase() === trimmed.toLowerCase();
+  });
+  if (alreadyExists) return { ok: true };
+
+  cat.words.push({
+    text: trimmed,
+    author: state.settings.nickname || "Anónimo"
+  });
+  syncToCloud(cat);
+  return { ok: true };
 }
 
 // Game logic
@@ -779,20 +892,114 @@ function viewRound({ onNavigate }) {
 }
 
 function viewSettings({ onNavigate }) {
-  const content = el("div", {}, [
-    el("h1", { class: "h1", text: "Ajustes" }),
-    el("p", { class: "p", text: "Configuración del juego" }),
-    el("div", { class: "actions" }, [
-      el("button", {
-        class: "btn btn-primary", type: "button", onclick: () => {
-          resetGame(state);
-          onNavigate("/");
-        }
-      }, ["Nueva partida"]),
-    ]),
+  const catList = el("div", { class: "category-list" });
+  const refreshCats = () => {
+    catList.innerHTML = "";
+    state.categories.forEach(cat => {
+      catList.append(el("div", {
+        class: "btn btn-category-manage",
+        onclick: () => onNavigate(`/categories/${cat.id}`)
+      }, [
+        el("span", { text: `${cat.name} (${cat.words.length})` })
+      ]));
+    });
+  };
+  refreshCats();
+
+  const addForm = el("form", {
+    class: "actions",
+    onsubmit: (e) => {
+      e.preventDefault();
+      const input = e.target.querySelector("input");
+      const res = createCategory(state, input.value);
+      if (res.ok) {
+        input.value = "";
+        refreshCats();
+      } else alert(res.reason);
+    }
+  }, [
+    el("input", { type: "text", placeholder: "Nueva categoría", required: true }),
+    el("button", { class: "btn btn-primary", type: "submit", text: "Añadir" })
   ]);
 
-  return { title: "TúImpostor", subtitle: "Ajustes", content };
+  const profileSection = el("div", { class: "section" }, [
+    el("div", { class: "section-header" }, [el("span", { text: "👤" }), el("h2", { text: "MI PERFIL" })]),
+    el("input", {
+      type: "text",
+      class: "player-input",
+      placeholder: "Tu apodo (ej: Juanito)",
+      value: state.settings.nickname,
+      oninput: (e) => {
+        state.settings.nickname = e.target.value;
+        localStorage.setItem("tuimpostor:nickname", e.target.value);
+      }
+    }),
+    el("p", { class: "small", style: "margin-top:4px", text: "Este nombre aparecerá junto a las palabras que crees." })
+  ]);
+
+  const content = el("div", {}, [
+    profileSection,
+    el("h2", { class: "h2", style: "margin-top:20px", text: "Categorías Globales" }),
+    catList,
+    addForm,
+    el("button", { class: "btn btn-primary", style: "margin-top:12px", onclick: () => { resetGame(state); onNavigate("/"); } }, ["Nueva partida"]),
+    el("button", { class: "btn btn-secondary", onclick: () => onNavigate("/") }, ["Volver"])
+  ]);
+
+  return { title: "Ajustes", subtitle: "Comunidad", content };
+}
+
+function viewCategoryDetail({ categoryId, onNavigate }) {
+  const cat = getCategoryById(state, categoryId);
+  if (!cat) return viewNotFound({ onNavigate });
+
+  const wordList = el("div", { class: "player-list" });
+  const refreshWords = () => {
+    wordList.innerHTML = "";
+    cat.words.forEach(wordObj => {
+      const text = typeof wordObj === "string" ? wordObj : wordObj.text;
+      const author = typeof wordObj === "string" ? "Sistema" : (wordObj.author || "Anónimo");
+
+      const item = el("div", {
+        class: "btn btn-player",
+        style: "pointer-events:none; justify-content: space-between;"
+      }, [
+        el("span", { text }),
+        el("span", {
+          style: "font-size: 10px; opacity: 0.5; font-style: italic;",
+          text: `por ${author}`
+        })
+      ]);
+      wordList.append(item);
+    });
+  };
+  refreshWords();
+
+  const addWordForm = el("form", {
+    class: "actions",
+    onsubmit: (e) => {
+      e.preventDefault();
+      const input = e.target.querySelector("input");
+      const res = addWord(state, categoryId, input.value);
+      if (res.ok) {
+        input.value = "";
+        refreshWords();
+      }
+    }
+  }, [
+    el("input", { type: "text", placeholder: "Nueva palabra", required: true }),
+    el("button", { class: "btn btn-primary", type: "submit", text: "Añadir Palabra" })
+  ]);
+
+  const content = el("div", {}, [
+    el("h2", { class: "h2", text: cat.name },),
+    el("p", { class: "p", text: "Estas palabras se sincronizan para todos los jugadores." }),
+    wordList,
+    addWordForm,
+    el("button", { class: "btn btn-secondary", style: "margin-top:20px", onclick: () => onNavigate("/settings") }, ["Ajustes"])
+  ]);
+
+  return { title: cat.name, subtitle: "Palabras", content };
 }
 
 function viewNotFound({ onNavigate }) {
@@ -819,8 +1026,15 @@ function renderApp(root, route, { onNavigate }) {
     "/round": viewRound,
   };
 
-  const view = routes[route] || viewNotFound;
-  const model = view({ onNavigate });
+  const dynamicMatch = /^\/categories\/([^\/]+)$/.exec(route);
+  let model;
+  if (dynamicMatch) {
+    model = viewCategoryDetail({ categoryId: dynamicMatch[1], onNavigate });
+  } else {
+    const view = routes[route] || viewNotFound;
+    model = view({ onNavigate });
+  }
+
   const nav = route !== "/" ? makeNav(route, onNavigate) : null;
   const next = screenShell({
     title: model.title,
@@ -901,6 +1115,7 @@ function hydrate() {
   }
   ensureCategories(state);
   ensureDefaultCategories(state);
+  syncFromCloud(state); // Sync cloud after local load
 }
 
 function persist() {
