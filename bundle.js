@@ -2,10 +2,10 @@
 // Supabase Config - Reemplazar con tus credenciales
 const SUPABASE_URL = "https://ouqfgqwesqrewdchcwwb.supabase.co";
 const SUPABASE_KEY = "sb_publishable_kr5xL4w58XScZhuIegrA_Q_oZhhCya4";
-let supabase = null;
+let supabaseClient = null;
 
 if (typeof window.supabase !== "undefined" && SUPABASE_URL.includes("supabase.co")) {
-  supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 }
 
 const statusEl = document.getElementById("sync-status");
@@ -103,10 +103,10 @@ function getCategoryById(state, id) {
 
 // Sync Functions
 async function syncFromCloud(state) {
-  if (!supabase) return;
+  if (!supabaseClient) return;
   try {
     setSyncStatus("Sincronizando...", "syncing");
-    const { data: cloudCats, error } = await supabase.from("categories").select("*");
+    const { data: cloudCats, error } = await supabaseClient.from("categories").select("*");
     if (error) throw error;
     if (cloudCats) {
       cloudCats.forEach(cloudCat => {
@@ -144,9 +144,9 @@ async function syncFromCloud(state) {
 }
 
 async function syncToCloud(category) {
-  if (!supabase) return;
+  if (!supabaseClient) return;
   try {
-    await supabase.from("categories").upsert({
+    await supabaseClient.from("categories").upsert({
       id: category.id,
       name: category.name,
       words: category.words,
