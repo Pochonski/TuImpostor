@@ -681,7 +681,7 @@ function viewRound({ onNavigate }) {
             el("h2", { class: "h2", text: `${player.label}` }),
             el("p", { class: "p", text: `Jugador ${currentPlayerIndex + 1} de ${players.length}` }),
             el("div", { class: "reveal-hint" }, [
-              el("span", { text: "👁️" }),
+              //el("span", { text: "👁️" }),
               el("p", { class: "p", text: "¿Listo para revelar? (Mantén presionado para ver)" })
             ])
           ])
