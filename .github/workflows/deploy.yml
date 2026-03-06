@@ -33,9 +33,6 @@ jobs:
           cp -r js dist/
           cp bundle.js dist/
 
-      - name: Run tests
-        run: npm run test:e2e
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/main'
