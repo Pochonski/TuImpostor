@@ -140,13 +140,13 @@ function viewNewGame({ onNavigate }) {
           state.game.playerNames[i] = e.target.value || `Jugador ${i + 1}`;
         }
       });
-      
+
       // Crear contenedor con ícono de lápiz
       const playerInputContainer = el("div", { class: "player-input-container" }, [
         playerNameInput,
         el("span", { class: "edit-icon" }, ["✏️"])
       ]);
-      
+
       playerButtons.append(playerInputContainer);
     }
   };
@@ -154,7 +154,7 @@ function viewNewGame({ onNavigate }) {
 
   const playersSection = el("div", { class: "section" }, [
     el("div", { class: "section-header" }, [
-      el("span", { text: "👋" }),
+      el("span", { text: "🖐" }),
       el("h2", { class: "section-title", text: "JUGADORES" }),
     ]),
     el("div", { class: "player-count-control" }, [
@@ -217,7 +217,7 @@ function viewNewGame({ onNavigate }) {
 
   const categoriesSection = el("div", { class: "section" }, [
     el("div", { class: "section-header" }, [
-      el("span", { text: "🏠" }),
+      el("span", { text: "📂" }),
       el("h2", { class: "section-title", text: "CATEGORÍAS" }),
     ]),
     catList,
@@ -238,7 +238,7 @@ function viewNewGame({ onNavigate }) {
 
   const impostorsSection = el("div", { class: "section" }, [
     el("div", { class: "section-header" }, [
-      el("span", { text: "🥸" }),
+      el("span", { text: "🕵️‍♀️" }),
       el("h2", { class: "section-title", text: "IMPOSTORES" }),
     ]),
     el("div", { class: "impostor-control" }, [
@@ -530,7 +530,7 @@ function viewRound({ onNavigate }) {
     // Seleccionar un jugador aleatorio para comenzar
     const randomIndex = Math.floor(Math.random() * players.length);
     const randomPlayer = players[randomIndex];
-    
+
     const content = el("div", {}, [
       el("h1", { class: "h1", text: "¡Inicia el juego!" }),
       el("div", { class: "card" }, [
@@ -582,7 +582,7 @@ function viewRound({ onNavigate }) {
     // Filtrar jugadores que ya han sido votados
     const votedPlayers = state.game.votedPlayers || [];
     const availablePlayers = players.filter((player, index) => !votedPlayers.includes(index));
-    
+
     const playerButtons = availablePlayers.map((player, originalIndex) => {
       const playerIndex = players.indexOf(player);
       return el("button", {
@@ -601,7 +601,7 @@ function viewRound({ onNavigate }) {
     });
 
     // Mostrar mensaje si no quedan jugadores disponibles para votar
-    const noPlayersMessage = availablePlayers.length === 0 ? 
+    const noPlayersMessage = availablePlayers.length === 0 ?
       el("p", { class: "p", style: "text-align: center; color: var(--muted); margin: 20px 0;" }, [
         "Todos los jugadores ya han sido votados"
       ]) : null;
@@ -631,7 +631,7 @@ function viewRound({ onNavigate }) {
   if (gamePhase === "vote-result") {
     const votedPlayer = state.game.votedPlayer;
     const isImpostor = votedPlayer.role === "impostor";
-    
+
     const content = el("div", {}, [
       el("h1", { class: "h1", text: isImpostor ? "¡Correcto!" : "¡Incorrecto!" }),
       el("div", { class: "card" }, [
@@ -695,7 +695,7 @@ function viewRound({ onNavigate }) {
       el("p", { class: "p", text: `La palabra era: ${currentWord}` }),
       el("div", { class: "section" }, [
         el("div", { class: "section-header" }, [
-          el("span", { text: "🕵️" }),
+          el("span", { text: "🕵️‍♀️" }),
           el("h2", { class: "section-title", text: "IMPOSTORES" }),
         ]),
         ...impostors.map(imp =>

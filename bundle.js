@@ -402,7 +402,7 @@ function viewNewGame({ onNavigate }) {
 
   const playersSection = el("div", { class: "section" }, [
     el("div", { class: "section-header" }, [
-      el("span", { text: "👋" }),
+      el("span", { text: "�" }),
       el("h2", { class: "section-title", text: "JUGADORES" }),
     ]),
     el("div", { class: "player-count-control" }, [
@@ -549,7 +549,7 @@ function viewNewGame({ onNavigate }) {
 
   const impostorsSection = el("div", { class: "section" }, [
     el("div", { class: "section-header" }, [
-      el("span", { text: "🕵️" }),
+      el("span", { text: "🕵️‍♀️" }),
       el("h2", { class: "section-title", text: "IMPOSTORES" }),
     ]),
     impostorControl,
@@ -753,7 +753,7 @@ function viewRound({ onNavigate }) {
       el("p", { class: "p", text: `La palabra era: ${currentWord}` }),
       el("div", { class: "section" }, [
         el("div", { class: "section-header" }, [
-          el("span", { text: "🕵️" }),
+          el("span", { text: "🕵️‍♀️" }),
           el("h2", { class: "section-title", text: "IMPOSTORES" }),
         ]),
         el("div", { class: "category-list" },
