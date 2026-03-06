@@ -943,7 +943,8 @@ function viewSettings({ onNavigate }) {
     catList,
     addForm,
     el("button", { class: "btn btn-primary", style: "margin-top:12px", onclick: () => { resetGame(state); onNavigate("/"); } }, ["Nueva partida"]),
-    el("button", { class: "btn btn-secondary", onclick: () => onNavigate("/") }, ["Volver"])
+    el("button", { class: "btn btn-secondary", style: "margin-top:12px", onclick: () => onNavigate("/") }, ["Volver"])
+
   ]);
 
   return { title: "Ajustes", subtitle: "Comunidad", content };
