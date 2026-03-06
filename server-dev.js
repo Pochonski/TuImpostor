@@ -20,11 +20,15 @@ const mimeTypes = {
 };
 
 const server = http.createServer((req, res) => {
-  let filePath = path.join(distDir, req.url === '/' ? 'index.html' : req.url);
+  // Parse URL to get pathname without query string
+  const url = new URL(req.url, `http://${req.headers.host}`);
+  const pathname = url.pathname;
+
+  let filePath = path.join(distDir, pathname === '/' ? 'index.html' : pathname);
   const ext = path.extname(filePath).toLowerCase();
 
   // Si no tiene extensión o es una ruta, servir index.html (SPA)
-  if (!ext || req.url === '/') {
+  if (!ext || pathname === '/') {
     filePath = path.join(distDir, 'index.html');
   }
 
