@@ -115,7 +115,7 @@ function assignRoles(playerCount, impostorCount) {
   const roles = [];
   for (let i = 0; i < impostorCount; i++) roles.push("impostor");
   for (let i = impostorCount; i < playerCount; i++) roles.push("normal");
-  
+
   // Shuffle roles
   for (let i = roles.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -169,18 +169,18 @@ function startGame(state) {
 function votePlayer(state, playerIndex) {
   const player = state.game.players[playerIndex];
   if (!player) return { ok: false, error: "Jugador no encontrado" };
-  
+
   if (!state.game.votedPlayers) {
     state.game.votedPlayers = [];
   }
-  
+
   if (!state.game.votedPlayers.includes(playerIndex)) {
     state.game.votedPlayers.push(playerIndex);
   }
-  
+
   state.game.votedPlayer = player;
   state.game.gamePhase = "vote-result";
-  
+
   return { ok: true, isImpostor: player.role === "impostor" };
 }
 
@@ -210,7 +210,7 @@ function resetGame(state) {
     playerNames: state.game.playerNames,
     categoryIds: state.game.categoryIds
   };
-  
+
   state.game = { ...createNewGameDraft(), ...savedConfig };
   state.game.votedPlayers = [];
   return { ok: true };
@@ -351,18 +351,18 @@ function viewNewGame({ onNavigate }) {
           state.game.playerNames[i] = e.target.value || `Jugador ${i + 1}`;
         }
       });
-      
+
       const playerInputContainer = el("div", { class: "player-input-container" }, [
         playerNameInput,
         el("span", { class: "edit-icon" }, ["✏️"])
       ]);
-      
+
       playerButtons.append(playerInputContainer);
     }
   };
   updatePlayerButtons();
 
-  const categoryButtons = cats.map(cat => 
+  const categoryButtons = cats.map(cat =>
     el("button", {
       class: "btn btn-category",
       type: "button",
@@ -470,8 +470,7 @@ function viewNewGame({ onNavigate }) {
     backButton,
   ]);
 
-  const nav = makeNav("/new", onNavigate);
-  return screenShell({ title: "TúImpostor", subtitle: "¿QUIÉN?", content, nav });
+  return { title: "TúImpostor", subtitle: "¿QUIÉN?", content };
 }
 
 function viewRound({ onNavigate }) {
@@ -482,7 +481,7 @@ function viewRound({ onNavigate }) {
   if (gamePhase === "start") {
     const randomIndex = Math.floor(Math.random() * players.length);
     const randomPlayer = players[randomIndex];
-    
+
     const content = el("div", {}, [
       el("h1", { class: "h1", text: "¡Inicia el juego!" }),
       el("div", { class: "card" }, [
@@ -532,7 +531,7 @@ function viewRound({ onNavigate }) {
   if (gamePhase === "voting") {
     const votedPlayers = state.game.votedPlayers || [];
     const availablePlayers = players.filter((player, index) => !votedPlayers.includes(index));
-    
+
     const playerButtons = availablePlayers.map((player, originalIndex) => {
       const playerIndex = players.indexOf(player);
       return el("button", {
@@ -550,7 +549,7 @@ function viewRound({ onNavigate }) {
       }, [player.label]);
     });
 
-    const noPlayersMessage = availablePlayers.length === 0 ? 
+    const noPlayersMessage = availablePlayers.length === 0 ?
       el("p", { class: "p", style: "text-align: center; color: var(--muted); margin: 20px 0;" }, [
         "Todos los jugadores ya han sido votados"
       ]) : null;
@@ -579,7 +578,7 @@ function viewRound({ onNavigate }) {
   if (gamePhase === "vote-result") {
     const votedPlayer = state.game.votedPlayer;
     const isImpostor = votedPlayer.role === "impostor";
-    
+
     const content = el("div", {}, [
       el("h1", { class: "h1", text: isImpostor ? "¡Correcto!" : "¡Incorrecto!" }),
       el("div", { class: "card" }, [
@@ -644,8 +643,8 @@ function viewRound({ onNavigate }) {
           el("span", { text: "🕵️" }),
           el("h2", { class: "section-title", text: "IMPOSTORES" }),
         ]),
-        el("div", { class: "category-list" }, 
-          impostors.map(impostor => 
+        el("div", { class: "category-list" },
+          impostors.map(impostor =>
             el("div", { class: "impostor-item" }, [
               el("span", { text: "🎭" }),
               el("span", { text: impostor.label })
@@ -701,7 +700,7 @@ function viewRound({ onNavigate }) {
 
   const refreshReveal = () => {
     const flipCard = revealArea.querySelector('.flip-card');
-    
+
     const handleReveal = (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -776,8 +775,7 @@ function viewRound({ onNavigate }) {
     }, ["Salir"])
   );
 
-  const nav = makeNav("/round", onNavigate);
-  return screenShell({ title: "Tu turno", subtitle: player.label, content: revealArea, nav });
+  return { title: "Tu turno", subtitle: player.label, content: revealArea };
 }
 
 function viewSettings({ onNavigate }) {
@@ -794,8 +792,7 @@ function viewSettings({ onNavigate }) {
     ]),
   ]);
 
-  const nav = makeNav("/settings", onNavigate);
-  return screenShell({ title: "TúImpostor", subtitle: "Ajustes", content, nav });
+  return { title: "TúImpostor", subtitle: "Ajustes", content };
 }
 
 function viewNotFound({ onNavigate }) {
@@ -844,7 +841,18 @@ function normalizeRoute(pathname) {
 
 function getRouteFromLocation() {
   const url = new URL(window.location.href);
-  return normalizeRoute(url.pathname);
+  const baseAttr = document.querySelector('base')?.getAttribute('href');
+  let pathname = url.pathname;
+
+  if (baseAttr && baseAttr !== "/" && pathname.startsWith(baseAttr)) {
+    // Si la base es /TuImpostor/ y el path es /TuImpostor/new, queremos /new
+    pathname = pathname.substring(baseAttr.length - 1);
+  } else if (pathname.startsWith("/TuImpostor")) {
+    // Fallback manual si no hay base tag pero estamos en el subpath conocido
+    pathname = pathname.substring("/TuImpostor".length);
+  }
+
+  return normalizeRoute(pathname || "/");
 }
 
 function setRoute(route, { push = true } = {}) {
@@ -855,7 +863,17 @@ function setRoute(route, { push = true } = {}) {
   state.route = next;
 
   if (push) {
-    history.pushState({ route: next }, "", next);
+    const baseAttr = document.querySelector('base')?.getAttribute('href');
+    let fullPath = next;
+
+    if (baseAttr && baseAttr !== "/") {
+      const cleanBase = baseAttr.replace(/\/$/, "");
+      fullPath = cleanBase + next;
+    } else if (window.location.pathname.startsWith("/TuImpostor")) {
+      fullPath = "/TuImpostor" + next;
+    }
+
+    history.pushState({ route: next }, "", fullPath);
   }
 
   render();
@@ -917,7 +935,16 @@ function ensureKnownInitialRoute() {
   const initial = getRouteFromLocation();
   const known = new Set(["/", "/new", "/settings", "/categories", "/round"]);
   state.route = known.has(initial) ? initial : "/";
-  history.replaceState({ route: state.route }, "", state.route);
+
+  const baseAttr = document.querySelector('base')?.getAttribute('href');
+  let fullPath = state.route;
+  if (baseAttr && baseAttr !== "/") {
+    fullPath = baseAttr.replace(/\/$/, "") + state.route;
+  } else if (window.location.pathname.startsWith("/TuImpostor")) {
+    fullPath = "/TuImpostor" + state.route;
+  }
+
+  history.replaceState({ route: state.route }, "", fullPath);
 }
 
 function setupAutoPersist() {
