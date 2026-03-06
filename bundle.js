@@ -402,7 +402,7 @@ function viewNewGame({ onNavigate }) {
 
   const playersSection = el("div", { class: "section" }, [
     el("div", { class: "section-header" }, [
-      el("span", { text: "�" }),
+      el("span", { text: "🖐" }),
       el("h2", { class: "section-title", text: "JUGADORES" }),
     ]),
     el("div", { class: "player-count-control" }, [
