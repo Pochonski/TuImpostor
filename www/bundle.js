@@ -621,7 +621,9 @@ function viewNewGame({ onNavigate }) {
 
 function viewRound({ onNavigate }) {
   const { currentPlayerIndex, players, revealed, currentWord, gamePhase } = state.game;
+  const displayWord = currentWord ? (typeof currentWord === "object" ? currentWord.text : currentWord) : "";
   const player = players[currentPlayerIndex];
+
   if (!player) return viewNotFound({ onNavigate });
 
   if (gamePhase === "start") {
@@ -783,7 +785,7 @@ function viewRound({ onNavigate }) {
     const impostors = players.filter(p => p.role === "impostor");
     const content = el("div", {}, [
       el("h1", { class: "h1", text: "¡Revelar impostores!" }),
-      el("p", { class: "p", text: `La palabra era: ${currentWord}` }),
+      el("p", { class: "p", text: `La palabra era: ${displayWord}` }),
       el("div", { class: "section" }, [
         el("div", { class: "section-header" }, [
           el("span", { text: "🕵️‍♀️" }),
@@ -834,8 +836,8 @@ function viewRound({ onNavigate }) {
         ]),
         el("div", { class: `flip-card-back ${player.role === "impostor" ? "impostor" : ""}` }, [
           el("div", { class: "card-content" }, [
-            el("h2", { class: "h2", text: player.role === "impostor" ? "🎭 IMPOSTOR" : `🎯 ${currentWord}` }),
-            el("p", { class: "p", text: player.role === "impostor" ? "Tu objetivo es hacer que los demás adivinen mal" : `Tu palabra es: ${currentWord}` })
+            el("h2", { class: "h2", text: player.role === "impostor" ? "🎭 IMPOSTOR" : `🎯 ${displayWord}` }),
+            el("p", { class: "p", text: player.role === "impostor" ? "Tu objetivo es hacer que los demás adivinen mal" : `Tu palabra es: ${displayWord}` })
           ])
         ])
       ])
