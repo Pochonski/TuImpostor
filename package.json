@@ -9,5 +9,10 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.48.0"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.2.0",
+    "@capacitor/cli": "^8.2.0",
+    "@capacitor/core": "^8.2.0"
   }
 }
