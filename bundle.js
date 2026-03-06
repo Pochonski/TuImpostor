@@ -942,10 +942,12 @@ function viewSettings({ onNavigate }) {
     el("h2", { class: "h2", style: "margin-top:20px", text: "Categorías Globales" }),
     catList,
     addForm,
-    el("button", { class: "btn btn-primary", style: "margin-top:12px", onclick: () => { resetGame(state); onNavigate("/"); } }, ["Nueva partida"]),
-    el("button", { class: "btn btn-secondary", style: "margin-top:12px", onclick: () => onNavigate("/") }, ["Volver"])
-
+    el("div", { class: "actions" }, [
+      el("button", { class: "btn btn-primary", onclick: () => { resetGame(state); onNavigate("/"); } }, ["Nueva partida"]),
+      el("button", { class: "btn btn-secondary", onclick: () => onNavigate("/") }, ["Volver"])
+    ])
   ]);
+
 
   return { title: "Ajustes", subtitle: "Comunidad", content };
 }
