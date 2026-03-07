@@ -44,7 +44,7 @@ Un juego social multijugador donde debes descubrir quién es el impostor entre v
 - **Multiplataforma**: Web y Android con Capacitor
 - **Build optimizado**: Vite para desarrollo rápido y producción optimizada
 
-## 🚀 Demo
+## 🚀 Jugar online
 
 Juega online: [https://tuimpostor.vercel.app/](https://tuimpostor.vercel.app/)
 
@@ -285,10 +285,10 @@ copies or substantial portions of the Software.
 **Hecho con ❤️ por [Pochonski](https://github.com/Pochonski)**
 
 - 📧 [GitHub Issues](https://github.com/Pochonski/TuImpostor/issues)
-<<<<<<< HEAD
-=======
+  <<<<<<< HEAD
+  =======
 
->>>>>>> 46c4066b55bedf36457f1d1e418cb9c472d5c7bd
+> > > > > > > 46c4066b55bedf36457f1d1e418cb9c472d5c7bd
 
 ---
 
