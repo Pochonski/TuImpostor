@@ -12,7 +12,7 @@ export const defaultCategories = [
   {
     id: "apps",
     name: "Apps",
-    words: ["WhatsApp", "Instagram", "Facebook", "Twitter", "TikTok", "YouTube", "Netflix", "Spotify", "Amazon", "Uber", "Airbnb", "Google", "Gmail", "Maps", "Waze", "Zoom", "Teams", "Slack", "Discord", "Telegram", "Snapchat", "Pinterest", "LinkedIn", "Tinder", "Bumble", "PayPal", "Venmo", "CashApp", "Robinhood", "Coinbase", "Duolingo", "Calm", "Headspace", "MyFitnessPal", "Strava", "Nike Run Club", "Fitbit", "Garmin", "Apple Watch", "Samsung Health", "Ring", "DoorDash", "Uber Eats", "Grubhub", "Postmates", "Instacart", "Shipt", "Target", "Walmart", "Amazon Prime", "Hulu", "Disney+", "HBO Max", "Paramount+", "Peacock", "Apple TV+", "YouTube TV"],
+    words: ["WhatsApp", "Instagram", "Facebook", "Twitter", "TikTok", "YouTube", "Netflix", "Spotify", "Amazon", "Uber", "Airbnb", "Google", "Gmail", "Maps", "Waze", "Zoom", "Teams", "Slack", "Discord", "Telegram", "Snapchat", "Pinterest", "LinkedIn", "Tinder", "PayPal", "Duolingo", "Disney+", "HBO Max"],
   },
   {
     id: "animals",
