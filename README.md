@@ -283,8 +283,7 @@ copies or substantial portions of the Software.
 **Hecho con ❤️ por [Pochonski](https://github.com/Pochonski)**
 
 - 📧 [GitHub Issues](https://github.com/Pochonski/TuImpostor/issues)
-- 🐦 [Twitter](https://twitter.com/pochonski) (si tienes)
-- 🌐 [Portfolio](https://pochonski.github.io) (si tienes)
+
 
 ---
 
