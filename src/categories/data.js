@@ -1,10 +1,5 @@
 export const defaultCategories = [
   {
-    id: "office",
-    name: "Oficina",
-    words: ["Reunión", "Café", "Correo", "Jefe", "Deadline", "Excel", "PowerPoint", "Impresora", "Escritorio", "Silla", "Teléfono", "Agenda", "Reporte", "Cliente", "Proyecto", "Equipo", "Vacaciones", "Nómina", "Contrato", "Presentación", "Spreadsheet", "Documento", "Fax"],
-  },
-  {
     id: "travel",
     name: "Viajes",
     words: ["Avión", "Hotel", "Maleta", "Pasaporte", "Excursión", "Playa", "Montaña", "Museo", "Restaurante", "Taxi", "Aeropuerto", "Equipaje", "Reserva", "Turista", "Guía", "Mapa", "Cámara", "Souvenir", "Hotel", "Hostal", "Alojamiento", "Transporte", "Visado"],
