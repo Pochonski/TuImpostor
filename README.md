@@ -48,6 +48,8 @@ Un juego social multijugador donde debes descubrir quién es el impostor entre v
 
 Juega online: [https://tuimpostor.vercel.app/](https://tuimpostor.vercel.app/)
 
+También disponible en: [https://pochonski.github.io/TuImpostor/](https://pochonski.github.io/TuImpostor/)
+
 ## 🛠️ Stack tecnológico
 
 ### Frontend
@@ -283,8 +285,6 @@ copies or substantial portions of the Software.
 **Hecho con ❤️ por [Pochonski](https://github.com/Pochonski)**
 
 - 📧 [GitHub Issues](https://github.com/Pochonski/TuImpostor/issues)
-- 🐦 [Twitter](https://twitter.com/pochonski) (si tienes)
-- 🌐 [Portfolio](https://pochonski.github.io) (si tienes)
 
 ---
 
