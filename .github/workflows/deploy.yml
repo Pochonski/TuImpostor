@@ -34,12 +34,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Build
-        run: |
-          mkdir dist
-          cp index-gh-pages.html dist/index.html
-          cp style.css dist/
-          cp -r js dist/
-          cp bundle.js dist/
+        run: npm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -47,7 +42,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./www
 
       - name: Deploy to GitHub Pages
         id: deployment
