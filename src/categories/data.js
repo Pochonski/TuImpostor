@@ -1,10 +1,5 @@
 export const defaultCategories = [
   {
-    id: "travel",
-    name: "Viajes",
-    words: ["Avión", "Hotel", "Maleta", "Pasaporte", "Excursión", "Playa", "Montaña", "Museo", "Restaurante", "Taxi", "Aeropuerto", "Equipaje", "Reserva", "Turista", "Guía", "Mapa", "Cámara", "Souvenir", "Hotel", "Hostal", "Alojamiento", "Transporte", "Visado"],
-  },
-  {
     id: "food",
     name: "Comida",
     words: ["Pizza", "Hamburguesa", "Tacos", "Sushi", "Pasta", "Ensalada", "Pollo", "Carne", "Pescado", "Arroz", "Frijoles", "Tortillas", "Queso", "Tomate", "Lechuga", "Cebolla", "Ajo", "Chile", "Limon", "Agua", "Refresco", "Cerveza", "Vino", "Postre", "Helado", "Chocolate", "Galletas", "Pan", "Mantequilla", "Huevo", "Leche", "Queso", "Yogurt", "Fruta", "Manzana", "Plátano", "Naranja", "Fresa", "Uva", "Sandía", "Melón", "Papaya", "Mango", "Piña", "Coco", "Aguacate", "Palomitas", "Nachos", "Doritos", "Cheetos", "Papas", "Hotdog", "Sandwich", "Torta", "Tamal", "Pozole", "Menudo", "Taco", "Burrito", "Quesadilla", "Tostada", "Chilaquiles"],
