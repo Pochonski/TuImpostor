@@ -278,6 +278,7 @@ export function viewRound({ onNavigate, onRefresh }) {
     el("button", {
       class: "btn btn-secondary",
       type: "button",
+      style: "margin-top: 16px;",
       onclick: () => {
         if (confirm("¿Salir de la partida? Se perderá el progreso.")) {
           store.dispatch({ type: RESET_GAME });
