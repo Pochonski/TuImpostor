@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   root: ".",
-  base: process.env.NODE_ENV === 'production' ? '/TuImpostor/' : '/',
+  base: '/',
   publicDir: "public",
   build: {
     outDir: "www",
