@@ -46,7 +46,7 @@ Un juego social multijugador donde debes descubrir quién es el impostor entre v
 
 ## 🚀 Jugar online
 
-Juega online: [https://tuimpostor.vercel.app/](https://tuimpostor.vercel.app/)
+Juega online: [https://tuimpostor.vercel.app/](https://tu-impostor.vercel.app/)
 
 También disponible en: [https://pochonski.github.io/TuImpostor/](https://pochonski.github.io/TuImpostor/)
 
