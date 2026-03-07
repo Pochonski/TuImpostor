@@ -1,4 +1,4 @@
-package pocho.tuimpostor;
+package com.tuimpostor.app;
 
 import com.getcapacitor.BridgeActivity;
 

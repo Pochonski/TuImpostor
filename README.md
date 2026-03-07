@@ -16,7 +16,8 @@ Un juego social multijugador donde debes descubrir quién es el impostor entre v
 - 👥 **Jugadores personalizables**: Desde 3 jugadores en adelante
 - 🎨 **Interfaz responsive**: Funciona en móviles y escritorio
 - 💾 **Persistencia local**: Guarda tu progreso
-- 🧪 **Tests E2E**: Calidad garantizada con Playwright
+- 🔄 **State management**: Arquitectura Redux-like para lógica pura
+- 📱 **Multiplataforma**: Web y Android con Capacitor
 
 ## 🚀 Demo
 
@@ -25,8 +26,9 @@ Juega online: [https://pochonski.github.io/TuImpostor/](https://pochonski.github
 ## 🛠️ Tecnología
 
 - **Frontend**: JavaScript vanilla, HTML5, CSS3
-- **Arquitectura**: SPA con routing client-side
-- **Testing**: Playwright E2E
+- **Build Tool**: Vite
+- **Arquitectura**: SPA con routing client-side, Redux-like state management (store, reducer, actions)
+- **Mobile**: Capacitor para Android
 - **Deploy**: GitHub Pages
 
 ## 📦 Instalación local
@@ -40,23 +42,25 @@ cd TuImpostor
 npm install
 
 # Inicia servidor de desarrollo
-node server.js
+npm run dev
 ```
 
-Abre `http://localhost:8000` en tu navegador.
+Abre `http://localhost:5173` en tu navegador.
 
-## 🧪 Testing
+## 📱 Desarrollo para Android
 
 ```bash
-# Ejecutar tests E2E
-npm run test:e2e
+# Construye la app web
+npm run build
 
-# Tests con interfaz gráfica
-npm run test:e2e:ui
+# Sincroniza con Capacitor
+npx cap sync android
 
-# Tests en modo headed (visible)
-npm run test:e2e:headed
+# Abre en Android Studio
+npx cap open android
 ```
+
+Asegúrate de tener Android Studio instalado.
 
 ## 🎯 Ideal para
 
