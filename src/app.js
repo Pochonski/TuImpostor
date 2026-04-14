@@ -55,9 +55,9 @@ function setupAutoPersist() {
   window.addEventListener("beforeunload", () => persist());
 }
 
-export function initApp() {
+export async function initApp() {
   store.subscribe(render); // Subscribing the root app to render on ANY state change
-  hydrate();
+  await hydrate();
   ensureKnownInitialRoute();
   interceptLinkClicks();
   onPopState();

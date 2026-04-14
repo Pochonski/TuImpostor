@@ -128,7 +128,7 @@ export function viewNewGame({ onNavigate, onRefresh }) {
       onclick: () => {
         const v = parseInt(impostorInput.value, 10);
         if (v > 1) {
-          state.game.impostorCount = v - 1;
+          store.dispatch({ type: UPDATE_IMPOSTOR_COUNT, payload: v - 1 });
           impostorInput.value = v - 1;
         }
       },
@@ -153,7 +153,7 @@ export function viewNewGame({ onNavigate, onRefresh }) {
       onclick: () => {
         const v = parseInt(impostorInput.value, 10);
         if (v < Math.floor(state.game.playerCount / 2)) {
-          state.game.impostorCount = v + 1;
+          store.dispatch({ type: UPDATE_IMPOSTOR_COUNT, payload: v + 1 });
           impostorInput.value = v + 1;
         }
       },

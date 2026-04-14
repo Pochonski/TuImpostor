@@ -1,5 +1,7 @@
 import { supabaseClient } from "../config.js";
 import { setSyncStatus } from "../ui.js";
+import { store } from "../store/store.js";
+import { ADD_CATEGORY, UPDATE_CATEGORY } from "../store/actions.js";
 
 export async function syncFromCloud(state) {
   if (!supabaseClient) return;
@@ -11,7 +13,7 @@ export async function syncFromCloud(state) {
       cloudCats.forEach((cloudCat) => {
         const local = state.categories.find((c) => c.id === cloudCat.id);
         if (!local) {
-          state.categories.push(cloudCat);
+          store.dispatch({ type: ADD_CATEGORY, payload: cloudCat });
         } else {
           const cloudWords = Array.isArray(cloudCat.words) ? cloudCat.words : [];
           const localWords = Array.isArray(local.words) ? local.words : [];
@@ -26,7 +28,10 @@ export async function syncFromCloud(state) {
               wordsMap.set(key, typeof w === "string" ? { text: w, author: "Gente" } : w);
             }
           });
-          local.words = Array.from(wordsMap.values());
+          store.dispatch({
+            type: UPDATE_CATEGORY,
+            payload: { id: local.id, changes: { words: Array.from(wordsMap.values()) } }
+          });
         }
       });
     }

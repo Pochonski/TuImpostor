@@ -1,17 +1,6 @@
 import { initialState } from "./initialState.js";
 import * as actions from "./actions.js";
-
-// Utility helpers for pure transitions
-function assignRoles(playerCount, impostorCount) {
-  const roles = [];
-  for (let i = 0; i < impostorCount; i++) roles.push("impostor");
-  for (let i = impostorCount; i < playerCount; i++) roles.push("normal");
-  for (let i = roles.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [roles[i], roles[j]] = [roles[j], roles[i]];
-  }
-  return roles;
-}
+import { assignRoles } from "../game/engine.js";
 
 export function reducer(state = initialState, action) {
   switch (action.type) {
