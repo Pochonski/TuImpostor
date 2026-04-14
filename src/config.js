@@ -1,19 +1,19 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs, doc, setDoc, deleteDoc, query, where } from 'firebase/firestore';
 
-// Firebase configuration - Replace with your actual config
+// Firebase configuration from environment variables
 const firebaseConfig = {
-  apiKey: "AIzaSyDFtsBVQ2VN3jJZK_0Z5xAwg1gNQuvedH8",
-  authDomain: "tuimpostor.firebaseapp.com",
-  projectId: "tuimpostor",
-  storageBucket: "tuimpostor.firebasestorage.app",
-  messagingSenderId: "480796554047",
-  appId: "1:480796554047:web:603650d2dd9bd08851d98a",
-  measurementId: "G-ZH5DMSDYTD"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+// Initialize Firebase only if credentials are available
+const app = firebaseConfig.apiKey ? initializeApp(firebaseConfig) : null;
+const db = app ? getFirestore(app) : null;
 
 export { db, collection, getDocs, doc, setDoc, deleteDoc, query, where };

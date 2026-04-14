@@ -1,8 +1,21 @@
+import type { AppState, Action, PlayerRole } from "./types.js";
 import { initialState } from "./initialState.js";
 import * as actions from "./actions.js";
-import { assignRoles } from "../game/engine.js";
 
-export function reducer(state = initialState, action) {
+function assignRoles(playerCount: number, impostorCount: number): PlayerRole[] {
+  const roles: PlayerRole[] = [];
+  for (let i = 0; i < playerCount; i++) {
+    roles.push(i < impostorCount ? "impostor" : "player");
+  }
+  // Fisher-Yates shuffle
+  for (let i = roles.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [roles[i], roles[j]] = [roles[j], roles[i]];
+  }
+  return roles;
+}
+
+export function reducer(state: AppState = initialState, action: Action): AppState {
   switch (action.type) {
     case actions.HYDRATE_STATE:
       return {
