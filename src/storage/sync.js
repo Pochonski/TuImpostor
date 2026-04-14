@@ -1,14 +1,16 @@
-import { supabaseClient } from "../config.js";
+import { db, collection, getDocs, doc, setDoc, deleteDoc, query, where } from "../config.js";
 import { setSyncStatus } from "../ui.js";
 import { store } from "../store/store.js";
 import { ADD_CATEGORY, UPDATE_CATEGORY } from "../store/actions.js";
 
 export async function syncFromCloud(state) {
-  if (!supabaseClient) return;
+  if (!db) return;
   try {
     setSyncStatus("Sincronizando...", "syncing");
-    const { data: cloudCats, error } = await supabaseClient.from("categories").select("*");
-    if (error) throw error;
+    const catsCol = collection(db, "categories");
+    const snapshot = await getDocs(catsCol);
+    const cloudCats = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+    
     if (cloudCats) {
       cloudCats.forEach((cloudCat) => {
         const local = state.categories.find((c) => c.id === cloudCat.id);
@@ -43,19 +45,27 @@ export async function syncFromCloud(state) {
 }
 
 export async function syncToCloud(category) {
-  if (!supabaseClient) return;
+  if (!db) return;
   try {
-    await supabaseClient.from("categories").upsert(
-      {
-        id: category.id,
-        name: category.name,
-        words: category.words,
-        author: category.author || "Anónimo",
-        updated_at: new Date(),
-      },
-      { onConflict: "id" }
-    );
+    const catDoc = doc(db, "categories", category.id);
+    await setDoc(catDoc, {
+      id: category.id,
+      name: category.name,
+      words: category.words,
+      author: category.author || "Anónimo",
+      updatedAt: new Date(),
+    });
   } catch (err) {
     console.warn("Push error (offline):", err);
+  }
+}
+
+export async function deleteFromCloud(categoryId) {
+  if (!db) return;
+  try {
+    const catDoc = doc(db, "categories", categoryId);
+    await deleteDoc(catDoc);
+  } catch (err) {
+    console.warn("Delete error:", err);
   }
 }
