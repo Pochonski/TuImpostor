@@ -1,22 +1,24 @@
 import { store } from "./store/store.js";
 import { HYDRATE_STATE } from "./store/actions.js";
 import { renderApp, setRoute, getRouteFromLocation, normalizeRoute, registerRender } from "./router.js";
-import { hydrateApp as hydrate, persistApp as persist } from "./lifecycle.js";
+import { hydrateApp, persistApp } from "./lifecycle.js";
+import type { AppState } from "./store/types.js";
 
-export function render() {
+export function render(): void {
   const root = document.getElementById("app");
   if (!root) return;
   const state = store.getState();
   renderApp(root, state.route, {
-    onNavigate: (to) => setRoute(to, { push: true }),
+    onNavigate: (to: string) => setRoute(to, { push: true }),
     onRefresh: render,
-    persist,
+    persist: persistApp,
   });
 }
 
-function interceptLinkClicks() {
-  document.addEventListener("click", (ev) => {
-    const a = ev.target?.closest?.("a");
+function interceptLinkClicks(): void {
+  document.addEventListener("click", (ev: Event) => {
+    const target = ev.target as HTMLElement;
+    const a = target?.closest?.("a");
     if (!a) return;
     const href = a.getAttribute("href");
     if (!href || !href.startsWith("/")) return;
@@ -25,14 +27,14 @@ function interceptLinkClicks() {
   });
 }
 
-function onPopState() {
+function onPopState(): void {
   window.addEventListener("popstate", () => {
     const route = history.state?.route ?? getRouteFromLocation();
     setRoute(normalizeRoute(route), { push: false });
   });
 }
 
-function ensureKnownInitialRoute() {
+function ensureKnownInitialRoute(): void {
   const initial = getRouteFromLocation();
   const known = new Set(["/", "/new", "/settings", "/categories", "/round", "/round-end"]);
   const route = known.has(initial) || initial.startsWith("/categories/") ? initial : "/";
@@ -48,16 +50,16 @@ function ensureKnownInitialRoute() {
   history.replaceState({ route }, "", fullPath);
 }
 
-function setupAutoPersist() {
+function setupAutoPersist(): void {
   window.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "hidden") persist();
+    if (document.visibilityState === "hidden") persistApp();
   });
-  window.addEventListener("beforeunload", () => persist());
+  window.addEventListener("beforeunload", () => persistApp());
 }
 
-export async function initApp() {
+export async function initApp(): Promise<void> {
   store.subscribe(render); // Subscribing the root app to render on ANY state change
-  await hydrate();
+  await hydrateApp();
   ensureKnownInitialRoute();
   interceptLinkClicks();
   onPopState();

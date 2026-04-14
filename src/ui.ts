@@ -1,4 +1,4 @@
-export function setSyncStatus(text, type = "") {
+export function setSyncStatus(text: string, type: string = ""): void {
   if (typeof document === "undefined") return;
   const statusEl = document.getElementById("sync-status");
   if (!statusEl) return;

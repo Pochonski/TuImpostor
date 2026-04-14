@@ -7,13 +7,19 @@ import { viewRound } from "./views/round.js";
 import { viewCategoryDetail } from "./views/categoryDetail.js";
 import { viewNotFound } from "./views/notFound.js";
 
-export function normalizeRoute(pathname) {
+interface RenderContext {
+  onNavigate: (path: string) => void;
+  onRefresh?: () => void;
+  persist?: () => void;
+}
+
+export function normalizeRoute(pathname: string): string {
   if (!pathname) return "/";
   const clean = pathname.replace(/\/+$/, "") || "/";
   return clean;
 }
 
-export function getRouteFromLocation() {
+export function getRouteFromLocation(): string {
   const url = new URL(window.location.href);
   const baseAttr = document.querySelector("base")?.getAttribute("href");
   let pathname = url.pathname;
@@ -25,13 +31,13 @@ export function getRouteFromLocation() {
   return normalizeRoute(pathname || "/");
 }
 
-let renderCallback = null;
+let renderCallback: (() => void) | null = null;
 
-export function registerRender(fn) {
+export function registerRender(fn: () => void): void {
   renderCallback = fn;
 }
 
-export function setRoute(route, { push = true } = {}) {
+export function setRoute(route: string, { push = true }: { push?: boolean } = {}): void {
   const next = normalizeRoute(route);
   const routeState = store.getState().route;
   if (routeState === next) return;
@@ -50,9 +56,14 @@ export function setRoute(route, { push = true } = {}) {
   if (renderCallback) renderCallback();
 }
 
-export function getViewModel(route, ctx) {
+interface CategoryDetailContext {
+  categoryId: string;
+  onNavigate: (path: string) => void;
+}
+
+export function getViewModel(route: string, ctx: RenderContext) {
   const { onNavigate, onRefresh, persist } = ctx;
-  const routes = {
+  const routes: Record<string, (ctx: RenderContext) => ReturnType<typeof viewNewGame>> = {
     "/": viewNewGame,
     "/new": viewNewGame,
     "/settings": viewSettings,
@@ -68,7 +79,7 @@ export function getViewModel(route, ctx) {
   }
 }
 
-export function renderApp(root, route, ctx) {
+export function renderApp(root: HTMLElement, route: string, ctx: RenderContext): void {
   const model = getViewModel(route, ctx);
   const nav = makeNav(route, ctx.onNavigate);
   const shell = screenShell({

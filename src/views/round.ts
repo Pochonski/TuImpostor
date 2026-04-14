@@ -3,11 +3,17 @@ import { el } from "../dom/el.js";
 import { REVEAL_IMPOSTORS, VOTE_PLAYER, NEXT_PLAYER, RESET_GAME, REVEAL_CURRENT_PLAYER, START_GAME, FINISH_REVEAL_PHASE, SET_GAME_PHASE } from "../store/actions.js";
 import { pickRandomWord } from "../game/engine.js";
 import { viewNotFound } from "./notFound.js";
+import type { Player } from "../store/types.js";
 
-export function viewRound({ onNavigate, onRefresh }) {
+interface ViewContext {
+  onNavigate: (path: string) => void;
+  onRefresh?: () => void;
+}
+
+export function viewRound({ onNavigate }: ViewContext) {
   const state = store.getState();
   const { currentPlayerIndex, players, currentWord, gamePhase } = state.game;
-  const displayWord = currentWord ? (typeof currentWord === "object" ? currentWord.text : currentWord) : "";
+  const displayWord = currentWord ? (typeof currentWord === "object" ? (currentWord as { text: string }).text : currentWord) : "";
   const player = players[currentPlayerIndex];
 
   if (!player) return viewNotFound({ onNavigate });
@@ -57,8 +63,8 @@ export function viewRound({ onNavigate, onRefresh }) {
 
   if (gamePhase === "voting") {
     const votedPlayers = state.game.votedPlayers || [];
-    const availablePlayers = players.filter((p, index) => !votedPlayers.includes(index));
-    const playerButtons = availablePlayers.map((p) => {
+    const availablePlayers = players.filter((p: Player, index: number) => !votedPlayers.includes(index));
+    const playerButtons = availablePlayers.map((p: Player) => {
       const playerIndex = players.indexOf(p);
       return el("button", {
         class: "btn btn-player",
@@ -95,6 +101,7 @@ export function viewRound({ onNavigate, onRefresh }) {
 
   if (gamePhase === "vote-result") {
     const votedPlayer = state.game.votedPlayer;
+    if (!votedPlayer) return viewNotFound({ onNavigate });
     const isImpostor = votedPlayer.role === "impostor";
     const colorStyle = "text-align: center; font-size: 16px; color: " + (isImpostor ? "var(--accent-2)" : "var(--danger)");
     const content = el("div", {}, [
@@ -144,7 +151,7 @@ export function viewRound({ onNavigate, onRefresh }) {
   }
 
   if (gamePhase === "reveal") {
-    const impostors = players.filter((p) => p.role === "impostor");
+    const impostors = players.filter((p: Player) => p.role === "impostor");
     const content = el("div", {}, [
       el("h1", { class: "h1", text: "¡Revelar impostores!" }),
       el("p", { class: "p", text: `La palabra era: ${displayWord}` }),
@@ -156,7 +163,7 @@ export function viewRound({ onNavigate, onRefresh }) {
         el(
           "div",
           { class: "category-list" },
-          impostors.map((impostor) =>
+          impostors.map((impostor: Player) =>
             el("div", { class: "impostor-item" }, [
               el("span", { text: "🎭" }),
               el("span", { text: impostor.label }),
@@ -222,13 +229,13 @@ export function viewRound({ onNavigate, onRefresh }) {
   const revealArea = el("div", { class: "reveal-area" }, [content]);
 
   const refreshReveal = () => {
-    const flipCard = revealArea.querySelector(".flip-card");
-    const handleReveal = (e) => {
+    const flipCard = revealArea.querySelector(".flip-card") as HTMLElement;
+    const handleReveal = (e: Event) => {
       e.preventDefault();
       e.stopPropagation();
       flipCard.classList.add("flipped");
     };
-    const handleHide = (e) => {
+    const handleHide = (e: Event) => {
       e.preventDefault();
       e.stopPropagation();
       flipCard.classList.remove("flipped");
@@ -250,11 +257,11 @@ export function viewRound({ onNavigate, onRefresh }) {
           class: "btn btn-primary",
           type: "button",
           style: "margin-top: 12px;",
-          onclick: (e) => {
+          onclick: (e: Event) => {
             e.preventDefault();
             e.stopPropagation();
-            if (window._isNextRunning) return;
-            window._isNextRunning = true;
+            if ((window as unknown as { _isNextRunning?: boolean })._isNextRunning) return;
+            (window as unknown as { _isNextRunning: boolean })._isNextRunning = true;
             if (isLastPlayer) {
               store.dispatch({ type: FINISH_REVEAL_PHASE });
             } else {
@@ -263,7 +270,7 @@ export function viewRound({ onNavigate, onRefresh }) {
               if (currentSt.game.currentPlayerIndex >= players.length) onNavigate("/round-end");
             }
             setTimeout(() => {
-              window._isNextRunning = false;
+              (window as unknown as { _isNextRunning: boolean })._isNextRunning = false;
             }, 600);
           },
         },

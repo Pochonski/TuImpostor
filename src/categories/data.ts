@@ -1,8 +1,10 @@
-export const defaultCategories = [
+import { Category } from "../store/types.js";
+
+export const defaultCategories: Category[] = [
   {
     id: "food",
     name: "Comida",
-    words: ["Pizza", "Hamburguesa", "Tacos", "Sushi", "Pasta", "Ensalada", "Pollo", "Carne", "Pescado", "Arroz", "Frijoles", "Tortillas", "Queso", "Tomate", "Lechuga", "Cebolla", "Ajo", "Chile", "Limon", "Agua", "Refresco", "Cerveza", "Vino", "Postre", "Helado", "Chocolate", "Galletas", "Pan", "Mantequilla", "Huevo", "Leche", "Queso", "Yogurt", "Fruta", "Manzana", "Plátano", "Naranja", "Fresa", "Uva", "Sandía", "Melón", "Papaya", "Mango", "Piña", "Coco", "Aguacate", "Palomitas", "Nachos", "Doritos", "Cheetos", "Papas", "Hotdog", "Sandwich", "Torta", "Tamal", "Pozole", "Menudo", "Taco", "Burrito", "Quesadilla", "Tostada", "Chilaquiles"],
+    words: ["Pizza", "Hamburguesa", "Tacos", "Sushi", "Pasta", "Ensalada", "Pollo", "Carne", "Pescado", "Arroz", "Frijoles", "Tortillas", "Queso", "Tomate", "Lechuga", "Cebolla", "Ajo", "Chile", "Limon", "Agua", "Refresco", "Cerveza", "Vino", "Postre", "Helado", "Chocolate", "Galletas", "Pan", "Mantequilla", "Huevo", "Leche", "Yogurt", "Fruta", "Manzana", "Plátano", "Naranja", "Fresa", "Uva", "Sandía", "Melón", "Papaya", "Mango", "Piña", "Coco", "Aguacate", "Palomitas", "Nachos", "Doritos", "Cheetos", "Papas", "Hotdog", "Sandwich", "Torta", "Tamal", "Pozole", "Menudo", "Burrito", "Quesadilla", "Tostada", "Chilaquiles"],
   },
   {
     id: "movies",
@@ -17,16 +19,16 @@ export const defaultCategories = [
   {
     id: "animals",
     name: "Animales",
-    words: ["Perro", "Gato", "León", "Tigre", "Elefante", "Jirafa", "Cebra", "Mono", "Gorila", "Chimpance", "Canguro", "Koala", "Panda", "Oso", "Lobo", "Zorro", "Mapache", "Ciervo", "Venado", "Conejo", "Liebre", "Ratón", "Rata", "Ardilla", "Hamster", "Cobayo", "Hurón", "Comadreja", "Nutria", "Castor", "Puercoespín", "Erizo", "Murciélago", "Marmota", "Tejón", "Lince", "Puma", "Leopardo", "Guepardo", "Jaguar", "Pantera", "Hiena", "Chacal", "Coyote", "Dingo", "Zorro", "Lobo", "Perro salvaje", "Caballo", "Poni", "Burro", "Mula", "Cebra", "Rinoceronte", "Hipopótamo", "Cocodrilo", "Aligator", "Caimán", "Serpiente", "Cobra", "Pitón", "Boa", "Víbora", "Tortuga", "Tortuga marina", "Iguana", "Camaleón", "Lagarto", "Dragón", "Salamandra"],
+    words: ["Perro", "Gato", "León", "Tigre", "Elefante", "Jirafa", "Cebra", "Mono", "Gorila", "Chimpance", "Canguro", "Koala", "Panda", "Oso", "Lobo", "Zorro", "Mapache", "Ciervo", "Venado", "Conejo", "Liebre", "Ratón", "Rata", "Ardilla", "Hamster", "Cobayo", "Hurón", "Comadreja", "Nutria", "Castor", "Puercoespín", "Erizo", "Murciélago", "Marmota", "Tejón", "Lince", "Puma", "Leopardo", "Guepardo", "Jaguar", "Pantera", "Hiena", "Chacal", "Coyote", "Dingo", "Perro salvaje", "Caballo", "Poni", "Burro", "Mula", "Rinoceronte", "Hipopótamo", "Cocodrilo", "Aligator", "Caimán", "Serpiente", "Cobra", "Pitón", "Boa", "Víbora", "Tortuga", "Tortuga marina", "Iguana", "Camaleón", "Lagarto", "Dragón", "Salamandra"],
   },
 ];
 
-export function ensureDefaultCategories(state) {
+export function ensureDefaultCategories(state: { categories: Category[] }) {
   if (!state.categories) state.categories = [];
   state.categories = getCategoriesWithDefaults(state.categories);
 }
 
-export function getCategoriesWithDefaults(currentCategories) {
+export function getCategoriesWithDefaults(currentCategories: Category[]): Category[] {
   const newCats = [...(currentCategories || [])];
   defaultCategories.forEach((defaultCat) => {
     const existingIndex = newCats.findIndex(
@@ -48,6 +50,6 @@ export function getCategoriesWithDefaults(currentCategories) {
   return newCats;
 }
 
-export function getCategoryById(state, id) {
+export function getCategoryById(state: { categories: Category[] }, id: string): Category | undefined {
   return state.categories.find((cat) => cat.id === id);
 }

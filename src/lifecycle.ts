@@ -3,8 +3,9 @@ import { HYDRATE_STATE } from "./store/actions.js";
 import { loadPersistedState, savePersistedState, ensureCategories } from "./storage/persist.js";
 import { syncFromCloud } from "./storage/sync.js";
 import { ensureDefaultCategories } from "./categories/data.js";
+import type { AppState } from "./store/types.js";
 
-export async function hydrateApp() {
+export async function hydrateApp(): Promise<void> {
   const persisted = loadPersistedState();
   if (persisted) {
     store.dispatch({ type: HYDRATE_STATE, payload: persisted });
@@ -15,7 +16,7 @@ export async function hydrateApp() {
   await syncFromCloud(state);
 }
 
-export function persistApp() {
+export function persistApp(): void {
   const state = store.getState();
   savePersistedState({
     settings: state.settings,

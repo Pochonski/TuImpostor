@@ -1,31 +1,32 @@
-import { db, collection, getDocs, doc, setDoc, deleteDoc, query, where } from "../config.js";
+import { db, collection, getDocs, doc, setDoc, deleteDoc } from "../config.js";
 import { setSyncStatus } from "../ui.js";
 import { store } from "../store/store.js";
 import { ADD_CATEGORY, UPDATE_CATEGORY } from "../store/actions.js";
+import type { AppState } from "../store/types.js";
 
-export async function syncFromCloud(state) {
+export async function syncFromCloud(state: AppState): Promise<void> {
   if (!db) return;
   try {
     setSyncStatus("Sincronizando...", "syncing");
     const catsCol = collection(db, "categories");
     const snapshot = await getDocs(catsCol);
-    const cloudCats = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+    const cloudCats = snapshot.docs.map((d: { id: string; data: () => Record<string, unknown> }) => ({ id: d.id, ...d.data() }));
     
     if (cloudCats) {
-      cloudCats.forEach((cloudCat) => {
+      cloudCats.forEach((cloudCat: { id: string; words?: unknown[] }) => {
         const local = state.categories.find((c) => c.id === cloudCat.id);
         if (!local) {
           store.dispatch({ type: ADD_CATEGORY, payload: cloudCat });
         } else {
           const cloudWords = Array.isArray(cloudCat.words) ? cloudCat.words : [];
           const localWords = Array.isArray(local.words) ? local.words : [];
-          const wordsMap = new Map();
-          localWords.forEach((w) => {
-            const key = typeof w === "string" ? w.toLowerCase() : w.text.toLowerCase();
+          const wordsMap = new Map<string, unknown>();
+          localWords.forEach((w: unknown) => {
+            const key = typeof w === "string" ? w.toLowerCase() : (w as { text: string }).text.toLowerCase();
             wordsMap.set(key, typeof w === "string" ? { text: w, author: "Sistema" } : w);
           });
-          cloudWords.forEach((w) => {
-            const key = typeof w === "string" ? w.toLowerCase() : w.text.toLowerCase();
+          cloudWords.forEach((w: unknown) => {
+            const key = typeof w === "string" ? w.toLowerCase() : (w as { text: string }).text.toLowerCase();
             if (!wordsMap.has(key)) {
               wordsMap.set(key, typeof w === "string" ? { text: w, author: "Gente" } : w);
             }
@@ -44,7 +45,7 @@ export async function syncFromCloud(state) {
   }
 }
 
-export async function syncToCloud(category) {
+export async function syncToCloud(category: { id: string; name: string; words: unknown[]; author?: string }): Promise<void> {
   if (!db) return;
   try {
     const catDoc = doc(db, "categories", category.id);
@@ -60,7 +61,7 @@ export async function syncToCloud(category) {
   }
 }
 
-export async function deleteFromCloud(categoryId) {
+export async function deleteFromCloud(categoryId: string): Promise<void> {
   if (!db) return;
   try {
     const catDoc = doc(db, "categories", categoryId);

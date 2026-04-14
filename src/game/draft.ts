@@ -1,6 +1,21 @@
-import { getCategoryById } from "../categories/data.js";
+import { getCategoryById } from "../categories/data.ts";
+import { Category } from "../store/types.js";
 
-export function createNewGameDraft() {
+export interface GameDraft {
+  status: "draft";
+  categoryIds: string[];
+  playerCount: number;
+  impostorCount: number;
+  playerNames: string[];
+  players: never[];
+  currentWord: null;
+  revealed: boolean;
+  currentPlayerIndex: number;
+  gamePhase: "setup";
+  startShown: boolean;
+}
+
+export function createNewGameDraft(): GameDraft {
   return {
     status: "draft",
     categoryIds: [],
@@ -16,7 +31,12 @@ export function createNewGameDraft() {
   };
 }
 
-export function validateGameDraft(state) {
+interface ValidationResult {
+  ok: boolean;
+  reason?: string;
+}
+
+export function validateGameDraft(state: { game: { categoryIds: string[]; playerCount: number; impostorCount: number }; categories: Category[] }): ValidationResult {
   const { categoryIds, playerCount, impostorCount } = state.game;
   if (!categoryIds || !categoryIds.length) return { ok: false, reason: "Selecciona al menos una categoría" };
   const totalWords = categoryIds.reduce((sum, id) => {

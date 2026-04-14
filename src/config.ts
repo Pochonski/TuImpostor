@@ -1,5 +1,5 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, doc, setDoc, deleteDoc, query, where } from 'firebase/firestore';
+import { initializeApp, type FirebaseApp } from 'firebase/app';
+import { getFirestore, type Firestore, collection, getDocs, doc, setDoc, deleteDoc, query, where } from 'firebase/firestore';
 
 // Firebase configuration from environment variables
 const firebaseConfig = {
@@ -13,7 +13,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase only if credentials are available
-const app = firebaseConfig.apiKey ? initializeApp(firebaseConfig) : null;
-const db = app ? getFirestore(app) : null;
+const app: FirebaseApp | null = firebaseConfig.apiKey ? initializeApp(firebaseConfig) : null;
+const db: Firestore | null = app ? getFirestore(app) : null;
 
 export { db, collection, getDocs, doc, setDoc, deleteDoc, query, where };

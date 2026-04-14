@@ -3,7 +3,12 @@ import { UPDATE_PLAYER_COUNT, UPDATE_IMPOSTOR_COUNT, UPDATE_PLAYER_NAME, TOGGLE_
 import { el } from "../dom/el.js";
 import { validateGameDraft } from "../game/draft.js";
 
-export function viewNewGame({ onNavigate, onRefresh }) {
+interface ViewContext {
+  onNavigate: (path: string) => void;
+  onRefresh?: () => void;
+}
+
+export function viewNewGame({ onNavigate }: ViewContext) {
   const state = store.getState();
   const cats = state.categories;
   if (!state.game.playerNames || state.game.playerNames.length === 0) {
@@ -25,10 +30,10 @@ export function viewNewGame({ onNavigate, onRefresh }) {
         type: "button",
         text: "−",
         onclick: () => {
-          const v = parseInt(playerCount.value, 10);
+          const v = parseInt((playerCount as HTMLInputElement).value, 10);
           if (v > 3) {
             store.dispatch({ type: UPDATE_PLAYER_COUNT, payload: v - 1 });
-            playerCount.value = v - 1;
+            (playerCount as HTMLInputElement).value = String(v - 1);
             updatePlayerButtons();
           }
         },
@@ -40,7 +45,7 @@ export function viewNewGame({ onNavigate, onRefresh }) {
         max: 20,
         value: state.game.playerCount,
         onchange: () => {
-          const v = parseInt(playerCount.value, 10);
+          const v = parseInt((playerCount as HTMLInputElement).value, 10);
           if (v >= 3 && v <= 20) {
             store.dispatch({ type: UPDATE_PLAYER_COUNT, payload: v });
           }
@@ -52,10 +57,10 @@ export function viewNewGame({ onNavigate, onRefresh }) {
         type: "button",
         text: "+",
         onclick: () => {
-          const v = parseInt(playerCount.value, 10);
+          const v = parseInt((playerCount as HTMLInputElement).value, 10);
           if (v < 20) {
             store.dispatch({ type: UPDATE_PLAYER_COUNT, payload: v + 1 });
-            playerCount.value = v + 1;
+            (playerCount as HTMLInputElement).value = String(v + 1);
             updatePlayerButtons();
           }
         },
@@ -64,8 +69,8 @@ export function viewNewGame({ onNavigate, onRefresh }) {
     el("div", { class: "player-buttons" }),
   ]);
 
-  const playerCount = playersSection.querySelector('input[type="number"]');
-  const playerButtons = playersSection.querySelector(".player-buttons");
+  const playerCount = playersSection.querySelector('input[type="number"]') as HTMLInputElement;
+  const playerButtons = playersSection.querySelector(".player-buttons") as HTMLElement;
 
   const updatePlayerButtons = () => {
     playerButtons.innerHTML = "";
@@ -75,10 +80,10 @@ export function viewNewGame({ onNavigate, onRefresh }) {
         type: "text",
         value: state.game.playerNames[i] || `Jugador ${i + 1}`,
         placeholder: `Jugador ${i + 1}`,
-        onchange: (e) => {
+        onchange: (e: Event) => {
           store.dispatch({
             type: UPDATE_PLAYER_NAME,
-            payload: { index: i, name: e.target.value || `Jugador ${i + 1}` },
+            payload: { index: i, name: (e.target as HTMLInputElement).value || `Jugador ${i + 1}` },
           });
         },
       });
@@ -126,10 +131,10 @@ export function viewNewGame({ onNavigate, onRefresh }) {
       type: "button",
       text: "−",
       onclick: () => {
-        const v = parseInt(impostorInput.value, 10);
+        const v = parseInt((impostorInput as HTMLInputElement).value, 10);
         if (v > 1) {
           store.dispatch({ type: UPDATE_IMPOSTOR_COUNT, payload: v - 1 });
-          impostorInput.value = v - 1;
+          (impostorInput as HTMLInputElement).value = String(v - 1);
         }
       },
     }),
@@ -140,7 +145,7 @@ export function viewNewGame({ onNavigate, onRefresh }) {
       max: Math.floor(state.game.playerCount / 2),
       value: state.game.impostorCount,
       onchange: () => {
-        const v = parseInt(impostorInput.value, 10);
+        const v = parseInt((impostorInput as HTMLInputElement).value, 10);
         if (v >= 1 && v <= Math.floor(store.getState().game.playerCount / 2)) {
            store.dispatch({ type: UPDATE_IMPOSTOR_COUNT, payload: v });
         }
@@ -151,16 +156,16 @@ export function viewNewGame({ onNavigate, onRefresh }) {
       type: "button",
       text: "+",
       onclick: () => {
-        const v = parseInt(impostorInput.value, 10);
+        const v = parseInt((impostorInput as HTMLInputElement).value, 10);
         if (v < Math.floor(state.game.playerCount / 2)) {
           store.dispatch({ type: UPDATE_IMPOSTOR_COUNT, payload: v + 1 });
-          impostorInput.value = v + 1;
+          (impostorInput as HTMLInputElement).value = String(v + 1);
         }
       },
     }),
   ]);
 
-  const impostorInput = impostorControl.querySelector('input[type="number"]');
+  const impostorInput = impostorControl.querySelector('input[type="number"]') as HTMLInputElement;
 
   const impostorsSection = el("div", { class: "section" }, [
     el("div", { class: "section-header" }, [
@@ -187,7 +192,7 @@ export function viewNewGame({ onNavigate, onRefresh }) {
            return;
         }
 
-        const availableWords = [];
+        const availableWords: string[] = [];
         for (const categoryId of currentState.game.categoryIds) {
           const cat = currentState.categories.find(c => c.id === categoryId);
           if (cat && cat.words) {

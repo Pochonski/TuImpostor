@@ -1,6 +1,10 @@
 import { el } from "../dom/el.js";
 
-export function viewNotFound({ onNavigate }) {
+interface ViewContext {
+  onNavigate: (path: string) => void;
+}
+
+export function viewNotFound({ onNavigate }: ViewContext) {
   const content = el("div", {}, [
     el("h1", { class: "h1", text: "404" }),
     el("p", { class: "p", text: "Página no encontrada" }),

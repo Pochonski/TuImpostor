@@ -1,11 +1,29 @@
 import { el } from "../dom/el.js";
 import { onError } from "../utils/errorHandler.js";
 
+interface ErrorBoundaryOptions {
+  fallback?: () => void;
+  onError?: (error: Error | unknown) => void;
+}
+
+interface ViewModel {
+  title: string;
+  subtitle: string;
+  content: HTMLElement;
+  isError?: boolean;
+}
+
 /**
  * ErrorBoundary component - catches and displays errors in the UI
  */
 export class ErrorBoundary {
-  constructor({ fallback, onError: errorCallback } = {}) {
+  fallback?: () => void;
+  errorCallback?: (error: Error | unknown) => void;
+  hasError: boolean = false;
+  error: Error | unknown | null = null;
+  unsubscribe: (() => void) | null = null;
+
+  constructor({ fallback, onError: errorCallback }: ErrorBoundaryOptions = {}) {
     this.fallback = fallback;
     this.errorCallback = errorCallback;
     this.hasError = false;
@@ -18,7 +36,7 @@ export class ErrorBoundary {
    * @param {Function} renderFn - Function that returns content to render
    * @returns {Object} View model with title, subtitle, and content
    */
-  wrapRender(renderFn) {
+  wrapRender(renderFn: () => ViewModel): ViewModel {
     try {
       const result = renderFn();
       this.hasError = false;
@@ -40,10 +58,10 @@ export class ErrorBoundary {
 
   /**
    * Render the error state
-   * @param {Error} error - The caught error
+   * @param {Error | unknown} error - The caught error
    * @returns {Object} View model for error display
    */
-  renderError(error) {
+  renderError(error: Error | unknown): ViewModel {
     const content = el("div", { class: "error-boundary" }, [
       el("div", { class: "error-icon" }, ["⚠️"]),
       el("h2", { class: "h1", text: "Algo salió mal" }),
@@ -55,8 +73,8 @@ export class ErrorBoundary {
       el("div", { class: "error-details" }, [
         el("p", {
           class: "small",
-          text: process.env.NODE_ENV === "development" 
-            ? error?.message || "Error desconocido"
+          text: import.meta.env?.NODE_ENV === "development" 
+            ? (error instanceof Error ? error.message : "Error desconocido")
             : "Por favor, intenta recargar la página.",
         }),
       ]),
@@ -93,7 +111,7 @@ export class ErrorBoundary {
   /**
    * Clean up resources
    */
-  destroy() {
+  destroy(): void {
     if (this.unsubscribe) {
       this.unsubscribe();
     }
@@ -106,8 +124,11 @@ export class ErrorBoundary {
  * @param {Object} options - Error boundary options
  * @returns {Function} Wrapped component
  */
-export function withErrorBoundary(Component, options = {}) {
-  return function ErrorBoundedComponent(props) {
+export function withErrorBoundary<Props extends object>(
+  Component: (props: Props) => ViewModel,
+  options: ErrorBoundaryOptions = {}
+): (props: Props) => ViewModel {
+  return function ErrorBoundedComponent(props: Props): ViewModel {
     const boundary = new ErrorBoundary(options);
     return boundary.wrapRender(() => Component(props));
   };

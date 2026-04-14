@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0b1220" />
+    <meta name="description" content="Juego de adivinar quién es el impostor" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="TúImpostor" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
     <meta
       http-equiv="Cache-Control"
       content="no-cache, no-store, must-revalidate"
@@ -12,13 +19,24 @@
     <meta http-equiv="Expires" content="0" />
     <link rel="icon" type="image/png" href="./assets/logo-C6sKhAoa.png" />
     <title>TúImpostor</title>
-    <script type="module" crossorigin src="./assets/index-D96ih9IW.js"></script>
+    <script type="module" crossorigin src="./assets/index-eoyMsS_H.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-DvYR3EI2.css">
-  </head>
+  <link rel="manifest" href="./manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="./registerSW.js"></script></head>
 
   <body>
     <div id="sync-status" class="sync-status" style="display: none"></div>
     <div id="app" class="app" aria-live="polite"></div>
 
+    <script>
+      // Register service worker for PWA
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/sw.js")
+            .then((reg) => console.log("SW registered:", reg.scope))
+            .catch((err) => console.warn("SW registration failed:", err));
+        });
+      }
+    </script>
   </body>
 </html>

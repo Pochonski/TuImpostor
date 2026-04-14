@@ -1,6 +1,14 @@
+import type { AppState } from "../store/types.js";
+
 export const KEY = "tuimpostor:v1";
 
-export function loadPersistedState() {
+export interface PersistableState {
+  settings?: Partial<AppState["settings"]>;
+  categories?: AppState["categories"];
+  game?: Partial<AppState["game"]>;
+}
+
+export function loadPersistedState(): PersistableState | null {
   try {
     const raw = localStorage.getItem(KEY);
     if (!raw) return null;
@@ -10,7 +18,7 @@ export function loadPersistedState() {
   }
 }
 
-export function savePersistedState(persistable) {
+export function savePersistedState(persistable: PersistableState): void {
   try {
     localStorage.setItem(KEY, JSON.stringify(persistable));
   } catch {
@@ -18,7 +26,7 @@ export function savePersistedState(persistable) {
   }
 }
 
-export function clearPersistedState() {
+export function clearPersistedState(): void {
   try {
     localStorage.removeItem(KEY);
   } catch {
@@ -26,7 +34,7 @@ export function clearPersistedState() {
   }
 }
 
-export function ensureCategories(state) {
+export function ensureCategories(state: { categories?: unknown[] }): unknown[] {
   if (!state.categories || !Array.isArray(state.categories)) {
     state.categories = [];
   }

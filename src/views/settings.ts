@@ -4,7 +4,13 @@ import { el } from "../dom/el.js";
 import { createCategory } from "../categories/actions.js";
 import { getCategoriesWithDefaults } from "../categories/data.js";
 
-export function viewSettings({ onNavigate, onRefresh, persist }) {
+interface ViewContext {
+  onNavigate: (path: string) => void;
+  onRefresh?: () => void;
+  persist?: () => void;
+}
+
+export function viewSettings({ onNavigate, onRefresh, persist }: ViewContext) {
   const state = store.getState();
   const catList = el("div", { class: "category-list" });
   const refreshCats = () => {
@@ -26,8 +32,9 @@ export function viewSettings({ onNavigate, onRefresh, persist }) {
 
   const addForm = el("form", {
     class: "actions",
-    onsubmit: (e) => {
+    onsubmit: (e: Event) => {
       e.preventDefault();
+      const input = (e.target as HTMLFormElement).querySelector("input") as HTMLInputElement;
       const res = createCategory(store.getState(), input.value);
       if (res.ok) {
         store.dispatch({ type: SET_CATEGORIES, payload: res.categories });
@@ -49,10 +56,10 @@ export function viewSettings({ onNavigate, onRefresh, persist }) {
       type: "text",
       class: "player-input",
       placeholder: "Tu apodo (ej: Juanito)",
-      value: state.settings.nickname,
-      oninput: (e) => {
-        store.dispatch({ type: UPDATE_SETTINGS, payload: { nickname: e.target.value }});
-        localStorage.setItem("tuimpostor:nickname", e.target.value);
+      value: state.settings.nickname || "",
+      oninput: (e: Event) => {
+        store.dispatch({ type: UPDATE_SETTINGS, payload: { nickname: (e.target as HTMLInputElement).value }});
+        localStorage.setItem("tuimpostor:nickname", (e.target as HTMLInputElement).value);
       },
     }),
     el("p", {
@@ -78,7 +85,7 @@ export function viewSettings({ onNavigate, onRefresh, persist }) {
             const newCats = getCategoriesWithDefaults(store.getState().categories);
             store.dispatch({ type: SET_CATEGORIES, payload: newCats });
             if (persist) persist();
-            onRefresh();
+            if (onRefresh) onRefresh();
           }
         },
       }, ["Restaurar categorías básicas"]),

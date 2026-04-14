@@ -3,7 +3,7 @@ import { initApp } from "./app.js";
 import { initErrorHandlers, reportError } from "./utils/errorHandler.js";
 
 if (typeof window !== "undefined") {
-  window.store = store;
+  (window as unknown as { store: typeof store }).store = store;
 }
 
 // Initialize global error handlers

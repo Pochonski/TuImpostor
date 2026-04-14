@@ -1,6 +1,6 @@
 // Game State Types
 export type GameStatus = "draft" | "playing" | "finished";
-export type GamePhase = "setup" | "start" | "playing" | "vote" | "vote-result" | "reveal" | "result";
+export type GamePhase = "setup" | "start" | "playing" | "vote" | "voting" | "vote-result" | "reveal" | "result";
 export type PlayerRole = "impostor" | "player";
 
 // Player
@@ -17,13 +17,17 @@ export interface Settings {
   vibration: boolean;
   darkMode: boolean;
   language: string;
+  nickname?: string;
 }
+
+// Word types
+export type WordEntry = string | { text: string; author?: string };
 
 // Category
 export interface Category {
   id: string;
   name: string;
-  words: string[];
+  words: WordEntry[];
 }
 
 // Game
